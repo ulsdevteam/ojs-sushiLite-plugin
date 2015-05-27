@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * plugins/generic/sushiLite/locale/en_US/locale.xml
+  *
+  * Copyright (c) 2014 University of Pittsburgh
+  * Distributed under the GNU GPL v2 or later. For full terms see the file docs/COPYING.
+  *
+  * Localization strings.
+  -->
+ 
+<locale name="en_US" full_name="U.S. English">
+	<message key="plugins.generic.sushiLite.plugin.name">SUSHI-Lite</message>
+	<message key="plugins.generic.sushiLite.plugin.description">Provides a SUSHI-Lite interface for usage statistics harvesting.</message>
+
+	<message key="plugins.generic.sushiLite.manager.settings">Settings</message>
+	<message key="plugins.generic.sushiLite.manager.test">Test</message>
+
+	<message key="plugins.generic.sushiLite.settingsForm.pageTitle">SUSHI-Lite settings</message>
+	<message key="plugins.generic.sushiLite.settingsForm.description">You can customize SUSHI-Lite with the form below.</message>
+
+	<message key="plugins.generic.sushiLite.testForm.pageTitle">SUSHI-Lite testing</message>
+	<message key="plugins.generic.sushiLite.testForm.description">You can generate SUSHI-Lite requests dynamically with the form below.</message>
+	<message key="plugins.generic.sushiLite.testForm.reportRequest">Report Request</message>
+	<message key="plugins.generic.sushiLite.testForm.reportName">Report Name</message>
+	<message key="plugins.generic.sushiLite.testForm.reportName.required">Report Name is required.</message>
+	<message key="plugins.generic.sushiLite.testForm.reportName.IR1">Item Report 1 (IR1)</message>
+	<message key="plugins.generic.sushiLite.testForm.reportName.JR1">Journal Report 1 (JR1)</message>
+	<message key="plugins.generic.sushiLite.testForm.reportName.AR1">Article Report 1 (JR1)</message>
+	<message key="plugins.generic.sushiLite.testForm.ReportInvalid">Report Name selection is not valid</message>
+	<message key="plugins.generic.sushiLite.testForm.requestorId">Requestor ID</message>
+	<message key="plugins.generic.sushiLite.testForm.customerId">Customer ID</message>
+	<message key="plugins.generic.sushiLite.testForm.apiKey">API Key</message>
+	<message key="plugins.generic.sushiLite.testForm.apiKeyNotUUID">API Key is not formatted as a UUID.</message>
+	<message key="plugins.generic.sushiLite.testForm.apiKeyInvalid">API Key is not valid.</message>
+	<message key="plugins.generic.sushiLite.testForm.reportFilters">Report Filters</message>
+	<message key="plugins.generic.sushiLite.testForm.dateRange">Date Range</message>
+	<message key="plugins.generic.sushiLite.testForm.dateRangeFormat">yyyy-mm-dd, yyyy-mm or yyyy</message>
+	<message key="plugins.generic.sushiLite.testForm.DateBeginInvalid">The format of the beginning of the Date Range is invalid.</message>
+	<message key="plugins.generic.sushiLite.testForm.DateEndInvalid">The format of the ending of the Date Range is invalid.</message>
+	<message key="plugins.generic.sushiLite.testForm.DateBeginAfterEnd">The end of the Date Range is before the beginning.</message>
+	<message key="plugins.generic.sushiLite.testForm.itemIdentifier">Item Id</message>
+	<message key="plugins.generic.sushiLite.testForm.itemIdentifier.scope.journal">Journal</message>
+	<message key="plugins.generic.sushiLite.testForm.itemIdentifier.scope.issue">Issue</message>
+	<message key="plugins.generic.sushiLite.testForm.itemIdentifier.scope.article">Article</message>
+	<message key="plugins.generic.sushiLite.testForm.itemIdentifier.scope.book">Book</message>
+	<message key="plugins.generic.sushiLite.testForm.itemIdentifier.scope.chapter">Chapter</message>
+	<message key="plugins.generic.sushiLite.testForm.itemIdentifier.scope.publisher">Publisher</message>
+	<message key="plugins.generic.sushiLite.testForm.ItemIdentfierScopeInvalid">Item Id scope selection is not valid</message>
+	<message key="plugins.generic.sushiLite.testForm.itemIdentifier.type.issn">ISSN</message>
+	<message key="plugins.generic.sushiLite.testForm.itemIdentifier.type.doi">DOI</message>
+	<message key="plugins.generic.sushiLite.testForm.itemIdentifier.type.isbn">ISBN</message>
+	<message key="plugins.generic.sushiLite.testForm.itemIdentifier.type.isni">ISNI</message>
+	<message key="plugins.generic.sushiLite.testForm.itemIdentifier.type.proprietary">proprietary</message>
+	<message key="plugins.generic.sushiLite.testForm.ItemIdentfierTypeInvalid">Item Id type selection is not valid</message>
+	<message key="plugins.generic.sushiLite.testForm.itemContributor">Item Contributor</message>
+	<message key="plugins.generic.sushiLite.testForm.itemContributor.type.orcid">OrcID</message>
+	<message key="plugins.generic.sushiLite.testForm.itemContributor.type.isni">ISNI</message>
+	<message key="plugins.generic.sushiLite.testForm.itemContributor.type.proprietary">proprietary</message>
+	<message key="plugins.generic.sushiLite.testForm.ItemContributorTypeInvalid">Item Contributor type selection is not valid</message>
+	<message key="plugins.generic.sushiLite.testForm.publisher">Publisher</message>
+	<message key="plugins.generic.sushiLite.testForm.platform">Platform</message>
+	<message key="plugins.generic.sushiLite.testForm.platformInvalid">Platform selection is not valid.</message>
+	<message key="plugins.generic.sushiLite.testForm.metricTypes">Metric Types</message>
+	<message key="plugins.generic.sushiLite.testForm.metricTypeInvalid">Invalid metric type.</message>
+	<message key="plugins.generic.sushiLite.testForm.pubYr">Pub Year</message>
+	<message key="plugins.generic.sushiLite.testForm.PubYrInvalid">The format of the Publication Year is invalid.</message>
+	<message key="plugins.generic.sushiLite.testForm.pubYrFrom">Pub Year From</message>
+	<message key="plugins.generic.sushiLite.testForm.PubYrFromInvalid">The format of the Publication Year From date is invalid.</message>
+	<message key="plugins.generic.sushiLite.testForm.pubYrTo">Pub Year To</message>
+	<message key="plugins.generic.sushiLite.testForm.PubYrToInvalid">The format of the Publication Year To date is invalid.</message>
+	<message key="plugins.generic.sushiLite.testForm.PubYrFromAfterTo">The Publication Year From date is after the Publication Year To date.</message>
+	<message key="plugins.generic.sushiLite.testForm.PubYrFromToConflict">The Publication Year From date and the Publication Year To date and the Publication Year date conflict with each other.</message>
+	<message key="plugins.generic.sushiLite.testForm.isArchive">Is Archive</message>
+	<message key="plugins.generic.sushiLite.testForm.IsArchiveInvalid">Is Archive flag is invalid.</message>
+	<message key="plugins.generic.sushiLite.testForm.reportAttributes">Report Attributes</message>
+	<message key="plugins.generic.sushiLite.testForm.granularity">Granularity</message>
+	<message key="plugins.generic.sushiLite.testForm.granularity.totals">Totals</message>
+	<message key="plugins.generic.sushiLite.testForm.granularity.yearly">Yearly</message>
+	<message key="plugins.generic.sushiLite.testForm.granularity.monthly">Monthly</message>
+	<message key="plugins.generic.sushiLite.testForm.granularity.daily">Daily</message>
+	<message key="plugins.generic.sushiLite.testForm.GranularityInvalid">Granularity selection is not valid</message>
+	<message key="plugins.generic.sushiLite.testForm.format">Format</message>
+	<message key="plugins.generic.sushiLite.testForm.format.json">JSON/JSONP</message>
+	<message key="plugins.generic.sushiLite.testForm.format.xml">XML</message>
+	<message key="plugins.generic.sushiLite.testForm.FormatInvalid">Format selection is not valid</message>
+	<message key="plugins.generic.sushiLite.testForm.callback">Callback</message>
+	<message key="plugins.generic.sushiLite.testForm.callbackInvalid">Callback does not apply to this Format.</message>
+	<message key="plugins.generic.sushiLite.testForm.callbackJsonpAssumed">Callback provided, but Format was not set to JSONP.  JSONP assumed.</message>
+	<message key="plugins.generic.sushiLite.testForm.limit">Limit</message>
+	<message key="plugins.generic.sushiLite.testForm.limitInvalid">Limit invalid.</message>
+	<message key="plugins.generic.sushiLite.testForm.offset">Offset</message>
+	<message key="plugins.generic.sushiLite.testForm.offsetInvalid">Offset invalid.</message>
+	<message key="plugins.generic.sushiLite.testForm.orderBy">Order By</message>
+	<message key="plugins.generic.sushiLite.testForm.orderBy.asc">Ascending</message>
+	<message key="plugins.generic.sushiLite.testForm.orderBy.des">Descending</message>
+	<message key="plugins.generic.sushiLite.testForm.submit">Submit</message>
+</locale>

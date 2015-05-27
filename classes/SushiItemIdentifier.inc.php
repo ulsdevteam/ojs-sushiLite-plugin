@@ -36,6 +36,9 @@ class SushiItemIdentifier {
 		// map valid types to known scopes
 		$types = array();
 		switch ($this->_scope) {
+			case '':
+				$types = array('issn', 'doi', 'isbn');
+				break;
 			case 'journal':
 				$types = array('issn', 'doi');
 				break;
@@ -47,13 +50,13 @@ class SushiItemIdentifier {
 			case 'book':
 				$types = array('isbn', 'doi');
 				break;
-			case 'publisher':
-				$types = array('isni');
-				break;
 			default:
 				$this->isValid = false;
 		}
-		$types[] = 'proprietary';
+		// Any scope can have a proprietary id, but an empty scope cannot because proprietary ids are scope specific
+		if ($this->_scope != '') {
+			$types[] = 'proprietary';
+		}
 		// ensure selected type is valid for the selected scope
 		import('lib.pkp.classes.validation.ValidatorInSet');
 		$validator = new ValidatorInSet($types);
@@ -66,14 +69,12 @@ class SushiItemIdentifier {
 				import('lib.pkp.classes.validation.ValidatorISSN');
 				$validator = new ValidatorISSN();
 				break;
-			case 'isni':
-				import('lib.pkp.classes.validation.ValidatorISNI');
-				$validator = new ValidatorISNI();
-				break;
+			case 'proprietary':
+				import('lib.pkp.classes.validation.ValidatorRegExp');
+				$validator = new ValidatorRegExp('/^[0-9]+$/');
 			//TODO: add validators for these formats
 			case 'doi':
 			case 'isbn':
-			case 'proprietary':
 				$validator = null;
 				break;
 			default:
@@ -96,6 +97,15 @@ class SushiItemIdentifier {
 			return array();
 		}
 		switch ($this->_scope) {
+			case '':
+				$retVal = $this->_getFilterArticle();
+				if (!$retVal) {
+					$retVal = $this->_getFilterIssue();
+				}
+				if (!$retVal) {
+					$retVal = $this->_getFilterJournal();
+				}
+				return $retVal;
 			case 'journal':
 				return $this->_getFilterJournal();
 			case 'issue':
@@ -117,15 +127,34 @@ class SushiItemIdentifier {
 	 * @return array() populated as key-value pairs for $filter in MetricsDAO::getMetrics(), or empty if no matches found
 	 */
 	function _getFilterJournal() {
+		$journalDao =& DAORegistry::getDAO('JournalDAO');
+		$journal = NULL;
 		switch ($this->_type) {
 			case 'issn':
-				return array(); // TODO;
+				$journals =& $journalDao->getBySetting('printIssn', $this->_value);
+				while (!$journals->eof()) {
+					$journal =& $journals->next();
+				}
+				if (!$journal) {
+					$journals =& $journalDao->getBySetting('onlineIssn', $this->_value);
+					while (!$journals->eof()) {
+						$journal =& $journals->next();
+					}
+				}
+				break;
 			case 'doi':
-				return array(); // TODO
+				// There is not currently a DOI at the journal title level in OJS 2.x
+				// There should be in OJS 3.x
+				break;
 			case 'proprietary':
-				return array(); // TODO
+				$journal = $journalDao->getById($this->_value);
 			default:
-				return array();
+				//unrecognized type
+		}
+		if ($journal) {
+			return array(STATISTICS_DIMENSION_CONTEXT_ID => $journal->getId());
+		} else {
+			return array();
 		}
 	}
 
@@ -134,13 +163,31 @@ class SushiItemIdentifier {
 	 * @return array() populated as key-value pairs for $filter in MetricsDAO::getMetrics(), or empty if no matches found
 	 */
 	function _getFilterIssue() {
+		$issueDao =& DAORegistry::getDAO('IssueDAO');
+		$issue = NULL;
 		switch ($this->_type) {
 			case 'doi':
-				return array(); // TODO
+				$issue = $issueDao->getIssueByPubId($this->_type, $this->_value);
+				break;
 			case 'proprietary':
-				return array(); // TODO
+				$issue = $issueDao->getIssueById($this->_value);
+				break;
 			default:
-				return array();
+				// unrecognized type
+		}
+		if ($issue) {
+			/*
+			$articleDao =& DAORegistry::getDAO('PublishedArticleDAO');
+			$articles = $articleDao->getPublishedArticles($issue->getId());
+			$articleList = array();
+			foreach ($articles as $article) {
+				$articleList[] = $article->getId();
+			}
+			return array(STATISTICS_DIMENSION_SUBMISSION_ID => array($articleList));
+			 */
+			return array(STATISTICS_DIMENSION_ISSUE_ID => $issue->getId());
+		} else {
+			return array();
 		}
 	}
 
@@ -149,13 +196,22 @@ class SushiItemIdentifier {
 	 * @return array() populated as key-value pairs for $filter in MetricsDAO::getMetrics(), or empty if no matches found
 	 */
 	function _getFilterArticle() {
+		$articleDao =& DAORegistry::getDAO('PublishedArticleDAO');
+		$article = NULL;
 		switch ($this->_type) {
 			case 'doi':
-				return array(); // TODO
+				$article = $articleDao->getPublishedArticleByPubId($this->_type, $this->_value);
+				break;
 			case 'proprietary':
-				return array(); // TODO
+				$article = $articleDao->getPublishedArticleByArticleId($this->_value);
+				break;
 			default:
-				return array();
+				// unrecognized type
+		}
+		if ($article) {
+			return array(STATISTICS_DIMENSION_SUBMISSION_ID => $article->getId());
+		} else {
+			return array();
 		}
 	}
 

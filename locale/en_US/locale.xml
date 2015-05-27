@@ -20,6 +20,9 @@
 	<message key="plugins.generic.sushiLite.settingsForm.pageTitle">SUSHI-Lite settings</message>
 	<message key="plugins.generic.sushiLite.settingsForm.description">You can customize SUSHI-Lite with the form below.</message>
 
+	<message key="plugins.generic.sushiLite.error.internalErrorNoReport">The requested report produced an internal error and the report could not be initialized.</message>
+	<message key="plugins.generic.sushiLite.error.internalErrorNoResponse">The requested report produced an internal error and the response could not be processed.</message>
+
 	<message key="plugins.generic.sushiLite.testForm.pageTitle">SUSHI-Lite testing</message>
 	<message key="plugins.generic.sushiLite.testForm.description">You can generate SUSHI-Lite requests dynamically with the form below.</message>
 	<message key="plugins.generic.sushiLite.testForm.reportRequest">Report Request</message>

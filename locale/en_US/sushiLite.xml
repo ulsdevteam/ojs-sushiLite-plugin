@@ -17,17 +17,20 @@
 	<message key="plugins.generic.sushiLite.error.1000">Service not available.</message>
 	<message key="plugins.generic.sushiLite.error.1010">Service busy.</message>
 	<message key="plugins.generic.sushiLite.error.1020">Client has made too many requests.</message>
+	<message key="plugins.generic.sushiLite.error.1030">Insufficient information to process this request.</message>
 	<message key="plugins.generic.sushiLite.error.2000">Requestor not authorized to access service.</message>
 	<message key="plugins.generic.sushiLite.error.2010">Requestor not authorized to access usage for institution.</message>
-	<message key="plugins.generic.sushiLite.error.0201">API Key not valid.</message>
+	<message key="plugins.generic.sushiLite.error.2020">Invalid API key.</message>
 	<message key="plugins.generic.sushiLite.error.3000">Report not supported.</message>
 	<message key="plugins.generic.sushiLite.error.3010">Report version not supported.</message>
 	<message key="plugins.generic.sushiLite.error.3020">Invalid date arguments.</message>
-	<message key="plugins.generic.sushiLite.error.3020">Invalid date arguments.</message>
 	<message key="plugins.generic.sushiLite.error.3030">No usage available for requested dates.</message>
+	<message key="plugins.generic.sushiLite.error.3031">Usage not ready for requested dates.</message>
 	<message key="plugins.generic.sushiLite.error.3040">Partial data returned.</message>
-	<message key="plugins.generic.sushiLite.error.3050">Filter not supported.</message>
-	<message key="plugins.generic.sushiLite.error.3051">Report attribute not supported.</message>
+	<message key="plugins.generic.sushiLite.error.3050">Parameter not supported.</message>
 	<message key="plugins.generic.sushiLite.error.3060">Invalid filter value.</message>
 	<message key="plugins.generic.sushiLite.error.3061">Invalid report attribute value.</message>
+	<message key="plugins.generic.sushiLite.error.3070">Required filter missing.</message>
+	<message key="plugins.generic.sushiLite.error.3071">Required report attribute missing.</message>
+	<message key="plugins.generic.sushiLite.error.3080">Limit requested greater than server limit.</message>
 </locale>

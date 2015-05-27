@@ -77,21 +77,21 @@ class SushiLite_v1_7 extends SushiLite {
 									foreach ($xml->childNodes as $node) {
 										$this->_results = $node;
 									}
-								} else {
-									$this->createError(1000, SUSHI_ERROR_SEVERITY_ERROR, 'plugins.generic.sushiLite.error.internalError2');
 								}
 								$exceptions = $reporter->getErrors();
 								if ($exceptions) {
 									foreach ($exceptions as $ex) {
-										switch ($ex->getCode()) {
-											case COUNTER_EXCEPTION_BAD_COLUMNS:
-											case COUNTER_EXCEPTION_BAD_FILTERS:
-											case COUNTER_EXCEPTION_BAD_ORDERBY:
-											case COUNTER_EXCEPTION_BAD_RANGE:
-												$this->createError(3050, $ex->getCode() & COUNTER_EXCEPTION_ERROR ? SUSHI_ERROR_SEVERITY_ERROR : SUSHI_ERROR_SEVERITY_WARNING, 'plugins.generic.sushiLite.error.internalError', NULL, $ex->getMessage());
-												break;
-											default:
-												$this->createError(1000, $ex->getCode() & COUNTER_EXCEPTION_ERROR ? SUSHI_ERROR_SEVERITY_ERROR : SUSHI_ERROR_SEVERITY_WARNING, 'plugins.generic.sushiLite.error.internalError3', NULL, $ex->getMessage().' '.$ex->getTraceAsString());
+										$handled = false;
+										if ($ex->getCode() & COUNTER_EXCEPTION_BAD_COLUMNS || $ex->getCode() & COUNTER_EXCEPTION_BAD_FILTERS || $ex->getCode() & COUNTER_EXCEPTION_BAD_ORDERBY || $ex->getCode() & COUNTER_EXCEPTION_BAD_RANGE) {
+											$this->createError(3050, $ex->getCode() & COUNTER_EXCEPTION_ERROR ? SUSHI_ERROR_SEVERITY_ERROR : SUSHI_ERROR_SEVERITY_WARNING, 'plugins.generic.sushiLite.error.internalError', NULL, $ex->getMessage());
+											$handled = true;
+										}
+										if ($ex->getCode() & COUNTER_EXCEPTION_NO_DATA) {
+											$this->createError(3030, $ex->getCode() & COUNTER_EXCEPTION_ERROR ? SUSHI_ERROR_SEVERITY_ERROR : SUSHI_ERROR_SEVERITY_WARNING, 'plugins.generic.sushiLite.error.internalError', NULL, $ex->getMessage());
+											$handled = true;
+										}
+										if (!$handled) {
+											$this->createError(1000, $ex->getCode() & COUNTER_EXCEPTION_ERROR ? SUSHI_ERROR_SEVERITY_ERROR : SUSHI_ERROR_SEVERITY_WARNING, 'plugins.generic.sushiLite.error.internalError', NULL, $ex->getMessage().' '.$ex->getTraceAsString());
 										}
 									}
 								}
@@ -196,8 +196,6 @@ class SushiLite_v1_7 extends SushiLite {
 			}
 			import('plugins.generic.sushiLite.classes.SushiItemIdentifier');
 			// Because we may start populating the item filter above, construct this additional filter separately, to be AND'd later
-			// TODO: This could get weird if divergent ItemIdentifiers are stacked (e.g. Article:doi:a|Journal:doi:j|Issue:doi:i where a ∉ i ∉ j)
-			// Right now we are presuming that getMetricFilter() will generally return a consistent STATISTICS_DIMENSION key
 			$andFilter = array();
 			foreach ($validator->sanitize($params['ItemIdentifier']) as $identifier) {
 				$itemIdentifier = new SushiItemIdentifier($identifier['scope'], $identifier['type'], $identifier['value']);
@@ -211,17 +209,22 @@ class SushiLite_v1_7 extends SushiLite {
 							$andFilter[$newFilterKey] = $newFilter[$newFilterKey];
 						}
 					} else {
-						$this->createError(60, SUSHI_LITE_ERROR_SEVERITY_WARNING, '', NULL, join(':', array($identifier['scope'], $identifier['type'], $identifier['value'])));
+						$this->createError(60, SUSHI_LITE_ERROR_SEVERITY_WARNING, '', NULL, join(':', array($identifier['scope'] ? $identifier['scope'] : '*', $identifier['type'], $identifier['value'])));
 					}
 				}
 			}
 			// AND the new filter with any old filter; if no old filter, the new filter replaces the empty filter key
-			foreach ($andFilter as $filterKey) {
-				if (array_key_exists($filterKey, $this->metrics_filter)) {
+			foreach (array_keys($andFilter) as $filterKey) {
+				if (array_key_exists($filterKey, $this->_metrics_filter)) {
 					$this->_metrics_filter[$filterKey] = array_intersect($this->_metrics_filter[$filterKey], $andFilter[$filterKey]);
 				} else {
 					$this->_metrics_filter[$filterKey] = $andFilter[$filterKey];
 				}
+			}
+			// We raised warnings if particular items didn't match
+			// If none of the items matched, raise an error
+			if (!$andFilter) {
+				$this->createError(3060, SUSHI_LITE_ERROR_SEVERITY_ERROR, 'plugins.generic.sushiLite.itemIdentifier.allDiscarded', NULL, $params['ItemIdentifier']);
 			}
 		}
 		if (isset($params['ItemContributor']) && !('' == $params['ItemContributor'])) {
@@ -254,6 +257,11 @@ class SushiLite_v1_7 extends SushiLite {
 				} else {
 					$this->_metrics_filter[$filterKey] = $andFilter[$filterKey];
 				}
+			}
+			// We raised warnings if particular items didn't match
+			// If none of the items matched, raise an error
+			if (!$andFilter) {
+				$this->createError(3060, SUSHI_LITE_ERROR_SEVERITY_ERROR, 'plugins.generic.sushiLite.itemContributor.allDiscarded', NULL, $params['ItemContributor']);
 			}
 		}
 		// TODO: Validate Publisher Filter?

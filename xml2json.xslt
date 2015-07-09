@@ -27,6 +27,11 @@
   LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
   OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
   THE POSSIBILITY OF SUCH DAMAGE.
+  
+  
+  Modified from the Parker convention to the SUSHI-Lite convention by:
+  Clinton Graham, University Library System, University of Pittsburgh
+  
 -->
 
   <xsl:output indent="no" omit-xml-declaration="yes" method="text" encoding="UTF-8" media-type="text/x-json"/>
@@ -144,32 +149,44 @@
 
   <!-- object -->
   <xsl:template match="*" name="base">
-    <xsl:if test="not(preceding-sibling::*)">{</xsl:if>
+  <xsl:if test="not(preceding-sibling::*)">
+    <xsl:text>{</xsl:text>
+    <xsl:for-each select="../@*">
+      <xsl:call-template name="escape-string">
+        <xsl:with-param name="s" select="concat('@',name())"/>
+      </xsl:call-template>
+      <xsl:text>:</xsl:text>
+      <xsl:call-template name="escape-string">
+        <xsl:with-param name="s" select="."/>
+      </xsl:call-template>
+      <xsl:text>,</xsl:text>
+    </xsl:for-each>
+  </xsl:if>
+    <!-- start mixed element with array -->
+    <xsl:if test="following-sibling::*[name()=name(current())] and not(preceding-sibling::*[name()=name(current())])">
+      <xsl:call-template name="escape-string">
+        <xsl:with-param name="s" select="name()"/>
+      </xsl:call-template>
+      <xsl:text>:</xsl:text>
+      <xsl:text>[</xsl:text>
+    </xsl:if>
+    <!-- start any element other than array start -->
+    <xsl:if test="not(following-sibling::*[name()=name(current())]) and not(preceding-sibling::*[name()=name(current())])">
     <xsl:call-template name="escape-string">
       <xsl:with-param name="s" select="name()"/>
     </xsl:call-template>
     <xsl:text>:</xsl:text>
+    </xsl:if>
     <xsl:apply-templates select="child::node()"/>
+    <!-- close array in mixed element -->
+    <xsl:if test="preceding-sibling::*[name()=name(current())] and not(following-sibling::*[name()=name(current())])">
+      <xsl:text>]</xsl:text>
+    </xsl:if>
     <xsl:if test="following-sibling::*">,</xsl:if>
     <xsl:if test="not(following-sibling::*)">}</xsl:if>
   </xsl:template>
 
-  <!-- array -->
-  <xsl:template match="*[count(../*[name(../*)=name(.)])=count(../*) and count(../*)&gt;1]">
-    <xsl:if test="not(preceding-sibling::*)">[</xsl:if>
-    <xsl:choose>
-      <xsl:when test="not(child::node())">
-        <xsl:text>null</xsl:text>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:apply-templates select="child::node()"/>
-      </xsl:otherwise>
-    </xsl:choose>
-    <xsl:if test="following-sibling::*">,</xsl:if>
-    <xsl:if test="not(following-sibling::*)">]</xsl:if>
-  </xsl:template>
-  
-  <!-- convert root element to an anonymous container -->
+  <!-- convert root element -->
   <xsl:template match="/">
     <xsl:apply-templates select="node()"/>
   </xsl:template>

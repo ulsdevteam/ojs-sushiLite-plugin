@@ -29,8 +29,11 @@
 	<message key="plugins.generic.sushiLite.error.3040">Partial data returned.</message>
 	<message key="plugins.generic.sushiLite.error.3050">Parameter not supported.</message>
 	<message key="plugins.generic.sushiLite.error.3060">Invalid filter value.</message>
-	<message key="plugins.generic.sushiLite.error.3061">Invalid report attribute value.</message>
+	<message key="plugins.generic.sushiLite.error.3061">Incongruous filter value.</message>
+	<message key="plugins.generic.sushiLite.error.3062">Invalid report attribute value.</message>
 	<message key="plugins.generic.sushiLite.error.3070">Required filter missing.</message>
 	<message key="plugins.generic.sushiLite.error.3071">Required report attribute missing.</message>
 	<message key="plugins.generic.sushiLite.error.3080">Limit requested greater than server limit.</message>
+	<message key="plugins.generic.sushiLite.error.versionNotSupported">The requested SUSHI version is not supported by this server.</message>
+	<message key="plugins.generic.sushiLite.error.versionsSupported">Supported version identifiers include:</message>
 </locale>

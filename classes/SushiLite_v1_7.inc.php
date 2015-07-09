@@ -53,13 +53,13 @@ class SushiLite_v1_7 extends SushiLite {
 				$this->setFormat($params);
 				switch ($method) {
 					case SUSHI_LITE_METHOD_GETSTATUS:
-						$this->createError(1, SUSHI_ERROR_SEVERITY_INFO, 'plugins.generic.sushiLite.error.GetStatusNotImplemented');
+						$this->createError(1, SUSHI_ERROR_SEVERITY_INFO, __('plugins.generic.sushiLite.error.GetStatusNotImplemented'));
 						break;
 					case SUSHI_LITE_METHOD_GETMETHODS:
-						$this->createError(1, SUSHI_ERROR_SEVERITY_INFO, 'plugins.generic.sushiLite.error.GetMethodsNotImplemented');
+						$this->createError(1, SUSHI_ERROR_SEVERITY_INFO, __('plugins.generic.sushiLite.error.GetMethodsNotImplemented'));
 						break;
 					case SUSHI_LITE_METHOD_GETREGISTRYENTRY:
-						$this->createError(1, SUSHI_ERROR_SEVERITY_INFO, 'plugins.generic.sushiLite.error.GetRegistryEntryNotImplemented');
+						$this->createError(1, SUSHI_ERROR_SEVERITY_INFO, __('plugins.generic.sushiLite.error.GetRegistryEntryNotImplemented'));
 						break;
 					case SUSHI_LITE_METHOD_GETREPORT:
 						$this->parseFilters($params);
@@ -83,20 +83,20 @@ class SushiLite_v1_7 extends SushiLite {
 									foreach ($exceptions as $ex) {
 										$handled = false;
 										if ($ex->getCode() & COUNTER_EXCEPTION_BAD_COLUMNS || $ex->getCode() & COUNTER_EXCEPTION_BAD_FILTERS || $ex->getCode() & COUNTER_EXCEPTION_BAD_ORDERBY || $ex->getCode() & COUNTER_EXCEPTION_BAD_RANGE) {
-											$this->createError(3050, $ex->getCode() & COUNTER_EXCEPTION_ERROR ? SUSHI_ERROR_SEVERITY_ERROR : SUSHI_ERROR_SEVERITY_WARNING, 'plugins.generic.sushiLite.error.internalError', NULL, $ex->getMessage());
+											$this->createError(3050, $ex->getCode() & COUNTER_EXCEPTION_ERROR ? SUSHI_ERROR_SEVERITY_ERROR : SUSHI_ERROR_SEVERITY_WARNING, __('plugins.generic.sushiLite.error.internalError'), NULL, $ex->getMessage());
 											$handled = true;
 										}
 										if ($ex->getCode() & COUNTER_EXCEPTION_NO_DATA) {
-											$this->createError(3030, $ex->getCode() & COUNTER_EXCEPTION_ERROR ? SUSHI_ERROR_SEVERITY_ERROR : SUSHI_ERROR_SEVERITY_WARNING, 'plugins.generic.sushiLite.error.internalError', NULL, $ex->getMessage());
+											$this->createError(3030, $ex->getCode() & COUNTER_EXCEPTION_ERROR ? SUSHI_ERROR_SEVERITY_ERROR : SUSHI_ERROR_SEVERITY_WARNING, __('plugins.generic.sushiLite.error.internalError'), NULL, $ex->getMessage());
 											$handled = true;
 										}
 										if (!$handled) {
-											$this->createError(1000, $ex->getCode() & COUNTER_EXCEPTION_ERROR ? SUSHI_ERROR_SEVERITY_ERROR : SUSHI_ERROR_SEVERITY_WARNING, 'plugins.generic.sushiLite.error.internalError', NULL, $ex->getMessage().' '.$ex->getTraceAsString());
+											$this->createError(1000, $ex->getCode() & COUNTER_EXCEPTION_ERROR ? SUSHI_ERROR_SEVERITY_ERROR : SUSHI_ERROR_SEVERITY_WARNING, __('plugins.generic.sushiLite.error.internalError'), NULL, $ex->getMessage().' '.$ex->getTraceAsString());
 										}
 									}
 								}
 							} else {
-								$this->createError(1000, SUSHI_ERROR_SEVERITY_ERROR, 'plugins.generic.sushiLite.error.internalError');
+								$this->createError(1000, SUSHI_ERROR_SEVERITY_ERROR, __('plugins.generic.sushiLite.error.internalError'));
 							}
 						}
 						break;
@@ -141,7 +141,7 @@ class SushiLite_v1_7 extends SushiLite {
 			if ($validator->isValid($params['APIKey'])) {
 				$this->_apikey = $params['APIKey'];
 			} else {
-				$this->createError(0201, SUSHI_LITE_ERROR_SEVERITY_WARNING, 'plugins.generic.sushiLite.testForm.apiKeyNotUUID');
+				$this->createError(0201, SUSHI_LITE_ERROR_SEVERITY_WARNING, __('plugins.generic.sushiLite.testForm.apiKeyNotUUID'));
 			}
 		}
 		return true;
@@ -163,7 +163,7 @@ class SushiLite_v1_7 extends SushiLite {
 		$dateValidator = new ValidatorDate();
 		if (isset($params['BeginDate']) && !('' == $params['BeginDate'])) {
 			if (!$dateValidator->isValid($params['BeginDate'])) {
-				$this->createError(3020, SUSHI_LITE_ERROR_SEVERITY_ERROR, "plugins.generic.sushiLite.testForm.DateBeginInvalid");
+				$this->createError(3020, SUSHI_LITE_ERROR_SEVERITY_ERROR, __("plugins.generic.sushiLite.testForm.DateBeginInvalid"));
 			} else {
 				// TODO: Check if data exists for this range?
 				$this->_metrics_filter[STATISTICS_DIMENSION_DAY]['from'] = date_format(date_create($params['BeginDate']), 'Ymd');
@@ -173,7 +173,7 @@ class SushiLite_v1_7 extends SushiLite {
 		}
 		if (isset($params['EndDate']) && !('' == $params['EndDate'])) {
 			if (!$dateValidator->isValid($params['EndDate'])) {
-				$this->createError(3020, SUSHI_LITE_ERROR_SEVERITY_ERROR, "plugins.generic.sushiLite.testForm.DateEndInvalid");
+				$this->createError(3020, SUSHI_LITE_ERROR_SEVERITY_ERROR, __("plugins.generic.sushiLite.testForm.DateEndInvalid"));
 			} else {
 				// TODO: Check if data exists for this range?
 				$this->_metrics_filter[STATISTICS_DIMENSION_DAY]['to'] = date_format(date_create($params['EndDate']), 'Ymd');
@@ -183,7 +183,7 @@ class SushiLite_v1_7 extends SushiLite {
 		}
 		if (isset($this->_metrics_filter[STATISTICS_DIMENSION_DAY]['from']) && isset($this->_metrics_filter[STATISTICS_DIMENSION_DAY]['to'])) {
 			if (strtotime($this->_metrics_filter[STATISTICS_DIMENSION_DAY]['from']) > strtotime($this->_metrics_filter[STATISTICS_DIMENSION_DAY]['to'])) {
-				$this->createError(3020, SUSHI_LITE_ERROR_SEVERITY_ERROR, "plugins.generic.sushiLite.testForm.DateBeginAfterEnd");
+				$this->createError(3020, SUSHI_LITE_ERROR_SEVERITY_ERROR, __("plugins.generic.sushiLite.testForm.DateBeginAfterEnd"));
 				unset($this->_metrics_filter[STATISTICS_DIMENSION_DAY]['from']);
 				unset($this->_metrics_filter[STATISTICS_DIMENSION_DAY]['to']);
 			}
@@ -224,7 +224,7 @@ class SushiLite_v1_7 extends SushiLite {
 			// We raised warnings if particular items didn't match
 			// If none of the items matched, raise an error
 			if (!$andFilter) {
-				$this->createError(3060, SUSHI_LITE_ERROR_SEVERITY_ERROR, 'plugins.generic.sushiLite.itemIdentifier.allDiscarded', NULL, $params['ItemIdentifier']);
+				$this->createError(3060, SUSHI_LITE_ERROR_SEVERITY_ERROR, __('plugins.generic.sushiLite.itemIdentifier.allDiscarded'), NULL, $params['ItemIdentifier']);
 			}
 		}
 		if (isset($params['ItemContributor']) && !('' == $params['ItemContributor'])) {
@@ -261,16 +261,16 @@ class SushiLite_v1_7 extends SushiLite {
 			// We raised warnings if particular items didn't match
 			// If none of the items matched, raise an error
 			if (!$andFilter) {
-				$this->createError(3060, SUSHI_LITE_ERROR_SEVERITY_ERROR, 'plugins.generic.sushiLite.itemContributor.allDiscarded', NULL, $params['ItemContributor']);
+				$this->createError(3060, SUSHI_LITE_ERROR_SEVERITY_ERROR, __('plugins.generic.sushiLite.itemContributor.allDiscarded'), NULL, $params['ItemContributor']);
 			}
 		}
 		// TODO: Validate Publisher Filter?
 		if (isset($params['Publisher']) && $params['Publisher']) {
-			$this->createError(3060, SUSHI_ERROR_SEVERITY_WARNING, 'plugins.generic.sushiLite.testForm.publisherInvalid', null, $params['Publisher']);
+			$this->createError(3060, SUSHI_ERROR_SEVERITY_WARNING, __('plugins.generic.sushiLite.testForm.publisherInvalid'), null, $params['Publisher']);
 		}
 		// Disallow Platform Filter
 		if (isset($params['Platform']) && $params['Platform']) {
-			$this->createError(3060, SUSHI_ERROR_SEVERITY_WARNING, 'plugins.generic.sushiLite.testForm.platformInvalid', null, $params['Platform']);
+			$this->createError(3060, SUSHI_ERROR_SEVERITY_WARNING, __('plugins.generic.sushiLite.testForm.platformInvalid'), null, $params['Platform']);
 		}
 
 		// TODO: Pick up conversion of $this->_filters to $this->_metrics_filter here
@@ -291,35 +291,35 @@ class SushiLite_v1_7 extends SushiLite {
 		}
 		if (isset($params['PubYr']) && !('' == $params['PubYr'])) {
 			if (!$dateValidator->isValid($params['PubYr'])) {
-				$this->createError(3020, SUSHI_LITE_ERROR_SEVERITY_ERROR, "plugins.generic.sushiLite.testForm.PubYrInvalid");
+				$this->createError(3020, SUSHI_LITE_ERROR_SEVERITY_ERROR, __("plugins.generic.sushiLite.testForm.PubYrInvalid"));
 			} else {
 				$this->_filters['PubYr'] = intval($params['PubYr']);
 			}
 		}
 		if (isset($params['PubYrFrom']) && !('' == $params['PubYrFrom'])) {
 			if (!$dateValidator->isValid($params['PubYrFrom'])) {
-				$this->createError(3020, SUSHI_LITE_ERROR_SEVERITY_ERROR, "plugins.generic.sushiLite.testForm.PubYrFromInvalid");
+				$this->createError(3020, SUSHI_LITE_ERROR_SEVERITY_ERROR, __("plugins.generic.sushiLite.testForm.PubYrFromInvalid"));
 			} else {
 				$this->_filters['PubYrFrom'] = intval($params['PubYrFrom']);
 			}
 		}
 		if (isset($params['PubYrTo']) && !('' == $params['PubYrTo'])) {
 			if (!$dateValidator->isValid($params['PubYrTo'])) {
-				$this->createError(3020, SUSHI_LITE_ERROR_SEVERITY_ERROR, "plugins.generic.sushiLite.testForm.PubYrToInvalid");
+				$this->createError(3020, SUSHI_LITE_ERROR_SEVERITY_ERROR, __("plugins.generic.sushiLite.testForm.PubYrToInvalid"));
 			} else {
 				$this->_filters['PubYrTo'] = intval($params['PubYrTo']);
 			}
 		}
 		if (isset($this->_filters['PubYrFrom']) && isset($this->_filters['PubYrTo'])) {
 			if (intval($params['PubYrFrom']) > intval($params['PubYrTo'])) {
-				$this->createError(3020, SUSHI_LITE_ERROR_SEVERITY_ERROR, "plugins.generic.sushiLite.testForm.PubYrFromAfterTo");
+				$this->createError(3020, SUSHI_LITE_ERROR_SEVERITY_ERROR, __("plugins.generic.sushiLite.testForm.PubYrFromAfterTo"));
 				unset($this->_filters['PubYrFrom']);
 				unset($this->_filters['PubYrTo']);
 			}
 		}
 		if (isset($this->_filters['PubYrFrom']) && isset($this->_filters['PubYrTo']) && isset($this->_filters['PubYr'])) {
 			if ($this->_filters['PubYrFrom'] != $this->_filters['PubYr'] || $this->_filters['PubYrTo'] != $this->_filters['PubYr']) {
-				$this->createError(3020, SUSHI_LITE_ERROR_SEVERITY_ERROR, "plugins.generic.sushiLite.testForm.PubYrFromToConflict");
+				$this->createError(3020, SUSHI_LITE_ERROR_SEVERITY_ERROR, __("plugins.generic.sushiLite.testForm.PubYrFromToConflict"));
 				unset($this->_filters['PubYrFrom']);
 				unset($this->_filters['PubYrTo']);
 				unset($this->_filters['PubYr']);
@@ -329,7 +329,7 @@ class SushiLite_v1_7 extends SushiLite {
 			import('lib.pkp.classes.validation.ValidatorInSet');
 			$validator = new ValidatorInSet(array('Y', 'N', 'YES', 'NO'));
 			if ($validator->isValid(strtoupper($params['isArchive']))) {
-				$this->createError(3060, SUSHI_LITE_ERROR_SEVERITY_ERROR, "plugins.generic.sushiLite.testForm.IsArchiveInvalid");
+				$this->createError(3060, SUSHI_LITE_ERROR_SEVERITY_ERROR, __("plugins.generic.sushiLite.testForm.IsArchiveInvalid"));
 			} else {
 				$this->_filters['isArchive'] = ucfirst(strtolower($params['isArchive']));
 			}
@@ -348,7 +348,7 @@ class SushiLite_v1_7 extends SushiLite {
 		if (isset($params['Granularity']) && !('' == $params['Granularity'])) {
 			$validator = new ValidatorInSet(array('Totals', 'Yearly', 'Monthly', 'Daily'));
 			if (!$validator->isValid(ucfirst(strtolower($params['Granularity'])))) {
-				$this->createError(3061, SUSHI_LITE_ERROR_SEVERITY_ERROR, "plugins.generic.sushiLite.testForm.GranularityInvalid");
+				$this->createError(3061, SUSHI_LITE_ERROR_SEVERITY_ERROR, __("plugins.generic.sushiLite.testForm.GranularityInvalid"));
 			} else {
 				// TODO: $this->_metrics_columns should be set based on the aggregation here
 				$this->_attributes['Granularity'] = ucfirst(strtolower($params['Granularity']));
@@ -357,30 +357,30 @@ class SushiLite_v1_7 extends SushiLite {
 		if (isset($params['Format']) && !('' == $params['Format'])) {
 			$validator = new ValidatorInSet(array('json', 'jsonp', 'xml'));
 			if (!$validator->isValid($params['Format'])) {
-				$this->createError(3061, SUSHI_LITE_ERROR_SEVERITY_ERROR, "plugins.generic.sushiLite.testForm.FormatInvalid");
+				$this->createError(3061, SUSHI_LITE_ERROR_SEVERITY_ERROR, __("plugins.generic.sushiLite.testForm.FormatInvalid"));
 			}
 		}
 		if (isset($params['Callback']) && isset($params['Callback'])) {
 			if (isset($params['Format']) && $params['Format'] == 'json') {
-				$this->createError(3061, SUSHI_LITE_ERROR_SEVERITY_WARNING, "plugins.generic.sushiLite.testForm.FormatJsonpAssumed");
+				$this->createError(3061, SUSHI_LITE_ERROR_SEVERITY_WARNING, __("plugins.generic.sushiLite.testForm.FormatJsonpAssumed"));
 			} elseif (isset($params['Format']) && $params['Format'] != 'jsonp') {
-				$this->createError(3061, SUSHI_LITE_ERROR_SEVERITY_ERROR, "plugins.generic.sushiLite.testForm.CallbackInvalid");
+				$this->createError(3061, SUSHI_LITE_ERROR_SEVERITY_ERROR, __("plugins.generic.sushiLite.testForm.CallbackInvalid"));
 			}
 		}
 		import('lib.pkp.classes.db.DBResultRange');
 		$range = new DBResultRange(-1, -1);
 		if (isset($params['Limit']) && !('' == $params['Limit'])) {
 			if (intval($params['Limit']) != $params['Limit']) {
-				$this->createError(3061, SUSHI_LITE_ERROR_SEVERITY_ERROR, "plugins.generic.sushiLite.testForm.LimitInvalid", null, $params['Limit']);
+				$this->createError(3061, SUSHI_LITE_ERROR_SEVERITY_ERROR, __("plugins.generic.sushiLite.testForm.LimitInvalid"), null, $params['Limit']);
 			} else {
 				$range->setCount(intval($params['Limit']));
 			}
 		}
 		if (isset($params['Offset']) && !('' == $params['Offset'])) {
 			if ($range->getCount() == -1) {
-				$this->createError(3061, SUSHI_LITE_ERROR_SEVERITY_ERROR, "plugins.generic.sushiLite.testForm.OffsetWithoutLimit");
+				$this->createError(3061, SUSHI_LITE_ERROR_SEVERITY_ERROR, __("plugins.generic.sushiLite.testForm.OffsetWithoutLimit"));
 			} elseif (intval($params['Offset']) != $params['Offset']) {
-				$this->createError(3061, SUSHI_LITE_ERROR_SEVERITY_ERROR, "plugins.generic.sushiLite.testForm.OffsetInvalid", null, $params['Offset']);
+				$this->createError(3061, SUSHI_LITE_ERROR_SEVERITY_ERROR, __("plugins.generic.sushiLite.testForm.OffsetInvalid"), null, $params['Offset']);
 			} else {
 				$range->setPage(intval($params['Offset']));
 			}
@@ -401,10 +401,10 @@ class SushiLite_v1_7 extends SushiLite {
 				if ($test->isValid()) {
 					$this->_metrics_orderBy = $test->getMetricOrderBy();
 				} else {
-					$this->createError(3061, SUSHI_LITE_ERROR_SEVERITY_ERROR, "plugins.generic.sushiLite.testForm.OrderByInvalid", null, $params['OrderBy']);
+					$this->createError(3061, SUSHI_LITE_ERROR_SEVERITY_ERROR, __("plugins.generic.sushiLite.testForm.OrderByInvalid"), null, $params['OrderBy']);
 				}
 			} else {
-				$this->createError(3061, SUSHI_LITE_ERROR_SEVERITY_ERROR, "plugins.generic.sushiLite.testForm.OrderByInvalid", null, $params['OrderBy']);
+				$this->createError(3061, SUSHI_LITE_ERROR_SEVERITY_ERROR, __("plugins.generic.sushiLite.testForm.OrderByInvalid"), null, $params['OrderBy']);
 			}
 		}
 	}
@@ -444,13 +444,13 @@ class SushiLite_v1_7 extends SushiLite {
 					}
 				}
 				if ($found) {
-					$this->createError(3010, SUSHI_ERROR_SEVERITY_ERROR, 'plugins.generic.sushiLite.error.reportExistsInRelease'.$release);
+					$this->createError(3010, SUSHI_ERROR_SEVERITY_ERROR, __('plugins.generic.sushiLite.error.reportExistsInRelease', array('release' => $release)));
 				} else {
 					$this->createError(3000, SUSHI_ERROR_SEVERITY_ERROR);
 				}
 			}
 		} else {
-			$this->createError(3000, SUSHI_ERROR_SEVERITY_ERROR, 'plugins.generic.sushiLite.error.noReportProvided');
+			$this->createError(3000, SUSHI_ERROR_SEVERITY_ERROR, __('plugins.generic.sushiLite.error.noReportProvided'));
 		}
 		return $this->_report;
 	}

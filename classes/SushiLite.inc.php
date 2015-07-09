@@ -80,7 +80,7 @@ class SushiLite {
 	 */
 	function processRequest($method, $request) {
 		// Abstract not implemented: return Service Unavailable error
-		$this->createError(1000, SUSHI_LITE_ERROR_SEVERITY_FATAL, 'plugins.generic.sushiLite.error.versionNotSupported');
+		$this->createError(1000, SUSHI_LITE_ERROR_SEVERITY_FATAL, __('plugins.generic.sushiLite.error.versionNotSupported'), NULL, __('plugins.generic.sushiLite.error.versionsSupported').' '.implode(', ', $this->getParentPlugin()->getAvailableVersions()));
 		$this->printResponse($this->createResponse());
 	}
 
@@ -128,7 +128,7 @@ class SushiLite {
 				$severityString = 'Fatal';
 		}
 		$error->appendChild($doc->createElement('Severity', $severityString));
-		$error->appendChild($doc->createElement('Message', __('plugins.generic.sushiLite.error.'.sprintf('%04d', $number)).($message ? ' '.__($message) : '')));
+		$error->appendChild($doc->createElement('Message', __('plugins.generic.sushiLite.error.'.sprintf('%04d', $number)).($message ? ' '.$message : '')));
 		if ($helpUrl) {
 			$error->appendChild($doc->createElement('HelpUrl', $helpUrl));
 		}

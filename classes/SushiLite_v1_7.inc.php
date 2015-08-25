@@ -90,6 +90,10 @@ class SushiLite_v1_7 extends SushiLite {
 											$this->createError(3030, $ex->getCode() & COUNTER_EXCEPTION_ERROR ? SUSHI_ERROR_SEVERITY_ERROR : SUSHI_ERROR_SEVERITY_WARNING, __('plugins.generic.sushiLite.error.internalError'), NULL, $ex->getMessage());
 											$handled = true;
 										}
+										if ($ex->getCode() & COUNTER_EXCEPTION_PARTIAL_DATA) {
+											$this->createError(3040, $ex->getCode() & COUNTER_EXCEPTION_ERROR ? SUSHI_ERROR_SEVERITY_ERROR : SUSHI_ERROR_SEVERITY_WARNING, __('plugins.generic.sushiLite.error.internalError'), NULL, $ex->getMessage());
+											$handled = true;
+										}
 										if (!$handled) {
 											$this->createError(1000, $ex->getCode() & COUNTER_EXCEPTION_ERROR ? SUSHI_ERROR_SEVERITY_ERROR : SUSHI_ERROR_SEVERITY_WARNING, __('plugins.generic.sushiLite.error.internalError'), NULL, $ex->getMessage().' '.$ex->getTraceAsString());
 										}

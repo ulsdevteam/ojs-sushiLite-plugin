@@ -13,13 +13,11 @@
  */
 
 define('SUSHI_LITE_ERROR_SEVERITY_INFO', 1);
-define('SUSHI_LITE_ERROR_SEVERITY_DEBUG', 1);
 define('SUSHI_LITE_ERROR_SEVERITY_WARNING', 2);
 define('SUSHI_LITE_ERROR_SEVERITY_ERROR', 4);
 define('SUSHI_LITE_ERROR_SEVERITY_FATAL', 8);
 
-define('SUSHI_LITE_CUSTOMER_OPENACCESS', "0");
-define('SUSHI_LITE_CUSTOMER_ALL', "1");
+define('SUSHI_LITE_REQUESTOR_ANONYMOUS', "anonymous");
 
 define('SUSHI_LITE_FORMAT_XML', 0);
 define('SUSHI_LITE_FORMAT_JSON', 1);
@@ -114,7 +112,6 @@ class SushiLite {
 		}
 		$severityString = '';
 		switch ($severity) {
-			case SUSHI_LITE_ERROR_SEVERITY_DEBUG:
 			case SUSHI_LITE_ERROR_SEVERITY_INFO:
 				$severityString = 'Info';
 				break;
@@ -154,14 +151,20 @@ class SushiLite {
 	function createResponse() {
 		$doc =  new DOMDocument();
 		$response = $doc->appendChild($doc->createElement('ReportResponse'));
-		// Pre-production Warning
-		// TODO: remove
-		$this->createError(9999, SUSHI_LITE_ERROR_SEVERITY_INFO, '', NULL, 'This data is for demonstration purposes only. Do not use for any production purpose!');
 		foreach ($this->_errors as $error) {
 			if (get_class($error) == 'DOMElement') {
 				$response->appendChild($doc->importNode($error, true));
 			}
 		}
+		$requestor = $doc->createElement('Requestor');
+		$requestor->appendChild($doc->createElement('ID', $this->_requestor));
+		$requestor->appendChild($doc->createElement('Name'));
+		$requestor->appendChild($doc->createElement('Email'));
+		$response->appendChild($requestor);
+		$response->appendChild($doc->createElement('CustomerReference')->appendChild($doc->createElement('ID', $this->_customer)));
+		$customer = $doc->createElement('CustomerReference');
+		$customer->appendChild($doc->createElement('ID', $this->_customer));
+		$response->appendChild($customer);
 		if (get_class($this->_results) == 'DOMElement') {
 			$response->appendChild($doc->importNode($this->_results, true));
 		}
@@ -228,9 +231,17 @@ class SushiLite {
 	/**
 	 * Set the requestor
 	 * @param $id string
+	 * @return boolean success
 	 */
-	function setRequestor($id = 'anonymous') {
+	function setRequestor($id = SUSHI_LITE_REQUESTOR_ANONYMOUS) {
 		$this->_requestor = $id;
+		// TODO: lookup and validate id in else-if
+		if ($id === SUSHI_LITE_REQUESTOR_ANONYMOUS) {
+			return true;
+		} else {
+			$this->createError(2000, SUSHI_LITE_ERROR_SEVERITY_ERROR);
+			return false;
+		}
 	}
 
 	/**

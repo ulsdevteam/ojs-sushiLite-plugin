@@ -118,21 +118,23 @@ class SushiLite_v1_7 extends SushiLite {
 	 * @return boolean
 	 */
 	function authorize($params) {
+		import('lib.pkp.classes.validation.ValidatorRegExp');
+		$validator = new ValidatorRegExp('/^[a-h0-9]{8}-[a-h0-9]{4}-[a-h0-9]{4}-[a-h0-9]{4}-[a-h0-9]{12}$/');
 		// Check the RequestorID, CustomerID and APIKey combination
 		// TODO: can also use Request::getIpAddress(), or logged-in user information
-		if (!isset($params['RequestorID']) || (isset($params['RequestorID']) && strtolower($params['RequestorID']) == 'anonymous')) {
-			$this->setRequestor(0);
-		} elseif (isset($params['RequestorID']) && intval($params['RequestorID'])) {
-			$this->setRequestor($params['RequestorID']);
+		if (!isset($params['RequestorID']) || strtolower($params['RequestorID']) == SUSHI_LITE_REQUESTOR_ANONYMOUS) {
+			$this->setRequestor();
+		} elseif (isset($params['RequestorID']) && $validator->isValid($params['RequestorID'])) {
+			if (!$this->setRequestor($params['RequestorID'])) {
+				return false;
+			}
 		} else {
 			$this->createError(2000, SUSHI_LITE_ERROR_SEVERITY_ERROR);
 			return false;
 		}
 		if (isset($params['CustomerID'])) {
 			switch ($params['CustomerID']) {
-				case SUSHI_LITE_CUSTOMER_ALL:
-				case SUSHI_LITE_CUSTOMER_OPENACCESS:
-					$this->_customer = $params['CustomerID'];
+				// TODO: Allow for customer definitions for access?
 				default:
 					$this->createError(2010, SUSHI_LITE_ERROR_SEVERITY_ERROR);
 					return false;
@@ -140,8 +142,6 @@ class SushiLite_v1_7 extends SushiLite {
 		}
 		// TODO: Authorize Requestor against Customer
 		if (isset($params['APIKey'])) {
-			import('lib.pkp.classes.validation.ValidatorRegExp');
-			$validator = new ValidatorRegExp('/^[a-h0-9]{8}-[a-h0-9]{4}-[a-h0-9]{4}-[a-h0-9]{4}-[a-h0-9]{12}$/');
 			if ($validator->isValid($params['APIKey'])) {
 				$this->_apikey = $params['APIKey'];
 			} else {

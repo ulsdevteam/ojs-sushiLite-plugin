@@ -48,6 +48,9 @@ class SushiLite {
 	var $_results;
 	var $_max_error;
 		
+	var $_selected_report;
+	var $_selected_release;
+
 	/**
 	 * Constructor
 	 * @return SushiLite object
@@ -164,6 +167,30 @@ class SushiLite {
 		$customer = $doc->createElement('CustomerReference');
 		$customer->appendChild($doc->createElement('ID', $this->_customer));
 		$response->appendChild($customer);
+		$definition = $doc->createElement('ReportDefinition');
+		$definition->setAttribute('Name', $this->_selected_report);
+		$definition->setAttribute('Release', str_replace('_', '.', $this->_selected_release));
+		$filters = $doc->createElement('Filters');
+		$range = $doc->createElement('UsageDateRange');
+		$range->appendChild($doc->createElement('Begin', $this->_filters['BeginDate']));
+		$range->appendChild($doc->createElement('End', $this->_filters['EndDate']));
+		$filters->appendChild($range);
+		foreach ($this->validFilters() as $filter) {
+			if ($filter != 'BeginDate' && $filter != 'EndDate' && isset($this->_filters[$filter])) {
+				$e = $doc->createElement('Filter', $this->_filters[$filter]);
+				$e->setAttribute('Name', $filter);
+				$filters->appendChild($e);
+			}
+		}
+		foreach ($this->validAttributes() as $attr) {
+			if (isset($this->_attributes[$attr])) {
+				$e = $doc->createElement('ReportAttribute', $this->_attributes[$attr]);
+				$e->setAttribute('Name', $attr);
+				$filters->appendChild($e);
+			}
+		}
+		$definition->appendChild($filters);
+		$response->appendChild($definition);
 		if (get_class($this->_results) == 'DOMElement') {
 			$response->appendChild($doc->importNode($this->_results, true));
 		}

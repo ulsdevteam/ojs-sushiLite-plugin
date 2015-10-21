@@ -27,6 +27,11 @@ define('SUSHI_LITE_FORMAT_JSON', 1);
 
 class SushiLite {
 
+	const NAMESPACE_SUSHI = 'http://www.niso.org/schemas/sushi';
+	const NAMESPACE_COUNTER = 'http://www.niso.org/schemas/counter';
+	const NAMESPACE_SUSHI_COUNTER = 'http://www.niso.org/schemas/sushi/counter';
+
+	
 	var $_parentPluginCategory;
 	var $_parentPluginName;
 
@@ -108,8 +113,8 @@ class SushiLite {
 	 */
 	function createError($number, $severity, $message = '', $helpUrl = NULL, $data = NULL) {
 		$doc =  new DOMDocument();
-		$error = $doc->appendChild($doc->createElement('Exception'));
-		$error->appendChild($doc->createElement('Number', $number));
+		$error = $doc->appendChild($doc->createElementNS('http://www.niso.org/schemas/sushi', 's:Exception'));
+		$error->appendChild($doc->createElementNS('http://www.niso.org/schemas/sushi', 's:Number', $number));
 		if ($severity > $this->_max_error) {
 			$this->_max_error = $severity;
 		}
@@ -127,13 +132,13 @@ class SushiLite {
 			case SUSHI_LITE_ERROR_SEVERITY_FATAL:
 				$severityString = 'Fatal';
 		}
-		$error->appendChild($doc->createElement('Severity', $severityString));
-		$error->appendChild($doc->createElement('Message', __('plugins.generic.sushiLite.error.'.sprintf('%04d', $number)).($message ? ' '.$message : '')));
+		$error->appendChild($doc->createElementNS('http://www.niso.org/schemas/sushi', 's:Severity', $severityString));
+		$error->appendChild($doc->createElementNS('http://www.niso.org/schemas/sushi', 's:Message', __('plugins.generic.sushiLite.error.'.sprintf('%04d', $number)).($message ? ' '.$message : '')));
 		if ($helpUrl) {
-			$error->appendChild($doc->createElement('HelpUrl', $helpUrl));
+			$error->appendChild($doc->createElementNS('http://www.niso.org/schemas/sushi', 's:HelpUrl', $helpUrl));
 		}
 		if ($data) {
-			$error->appendChild($doc->createElement('Data', $data));
+			$error->appendChild($doc->createElementNS('http://www.niso.org/schemas/sushi', 's:Data', $data));
 		}
 		$error->setAttribute('Created', date("c"));
 		$this->_errors[] = $error;
@@ -153,46 +158,63 @@ class SushiLite {
 	 */
 	function createResponse() {
 		$doc =  new DOMDocument();
-		$response = $doc->appendChild($doc->createElement('ReportResponse'));
+		$doc->formatOutput = true;
+		$response = $doc->appendChild($doc->createElementNS(self::NAMESPACE_SUSHI_COUNTER, 'sc:ReportResponse'));
+		$xmlns = $doc->createAttributeNS('http://www.w3.org/2001/XMLSchema-instance', 'xsi:schemaLocation');
+		$xmlns->value = self::NAMESPACE_SUSHI.' http://www.niso.org/schemas/sushi/sushi1_7.xsd '.
+			self::NAMESPACE_SUSHI_COUNTER.' http://www.niso.org/schemas/sushi/sushi_counter4_1.xsd ';
+			self::NAMESPACE_COUNTER.' http://www.niso.org/schemas/sushi/counter4_1.xsd';
+		$response->appendChild($xmlns);
 		foreach ($this->_errors as $error) {
 			if (get_class($error) == 'DOMElement') {
 				$response->appendChild($doc->importNode($error, true));
 			}
 		}
-		$requestor = $doc->createElement('Requestor');
-		$requestor->appendChild($doc->createElement('ID', $this->_requestor));
-		$requestor->appendChild($doc->createElement('Name'));
-		$requestor->appendChild($doc->createElement('Email'));
+		$requestor = $doc->createElementNS(self::NAMESPACE_SUSHI, 's:Requestor');
+		$requestor->appendChild($doc->createElementNS(self::NAMESPACE_SUSHI, 's:ID', $this->_requestor));
+		$requestor->appendChild($doc->createElementNS(self::NAMESPACE_SUSHI, 's:Name'));
+		$requestor->appendChild($doc->createElementNS(self::NAMESPACE_SUSHI, 's:Email'));
 		$response->appendChild($requestor);
-		$customer = $doc->createElement('CustomerReference');
-		$customer->appendChild($doc->createElement('ID', $this->_customer));
+		$customer = $doc->createElementNS(self::NAMESPACE_SUSHI, 's:CustomerReference');
+		$customer->appendChild($doc->createElementNS(self::NAMESPACE_SUSHI, 's:ID', $this->_customer));
 		$response->appendChild($customer);
-		$definition = $doc->createElement('ReportDefinition');
+		$definition = $doc->createElementNS(self::NAMESPACE_SUSHI, 's:ReportDefinition');
 		$definition->setAttribute('Name', $this->_selected_report);
 		$definition->setAttribute('Release', str_replace('_', '.', $this->_selected_release));
-		$filters = $doc->createElement('Filters');
-		$range = $doc->createElement('UsageDateRange');
-		$range->appendChild($doc->createElement('Begin', $this->_filters['BeginDate']));
-		$range->appendChild($doc->createElement('End', $this->_filters['EndDate']));
+		$filters = $doc->createElementNS(self::NAMESPACE_SUSHI, 's:Filters');
+		$range = $doc->createElementNS(self::NAMESPACE_SUSHI, 's:UsageDateRange');
+		$range->appendChild($doc->createElementNS(self::NAMESPACE_SUSHI, 's:Begin', $this->_filters['BeginDate']));
+		$range->appendChild($doc->createElementNS(self::NAMESPACE_SUSHI, 's:End', $this->_filters['EndDate']));
 		$filters->appendChild($range);
 		foreach ($this->validFilters() as $filter) {
 			if ($filter != 'BeginDate' && $filter != 'EndDate' && isset($this->_filters[$filter])) {
-				$e = $doc->createElement('Filter', $this->_filters[$filter]);
+				$e = $doc->createElementNS(self::NAMESPACE_SUSHI, 's:Filter', $this->_filters[$filter]);
 				$e->setAttribute('Name', $filter);
 				$filters->appendChild($e);
 			}
 		}
 		foreach ($this->validAttributes() as $attr) {
 			if (isset($this->_attributes[$attr])) {
-				$e = $doc->createElement('ReportAttribute', $this->_attributes[$attr]);
+				$e = $doc->createElementNS(self::NAMESPACE_SUSHI, 's:ReportAttribute', $this->_attributes[$attr]);
 				$e->setAttribute('Name', $attr);
 				$filters->appendChild($e);
 			}
 		}
 		$definition->appendChild($filters);
 		$response->appendChild($definition);
-		if (get_class($this->_results) == 'DOMElement') {
-			$response->appendChild($doc->importNode($this->_results, true));
+		$reports = $doc->createElementNS(self::NAMESPACE_SUSHI_COUNTER, 'sc:Report');
+		// Incoming report's root element is <Reports>
+		// We are interested in appending each child <Report> from that element
+		if (get_class($this->_results) == 'DOMElement' && $this->_results->hasChildNodes()) {
+			// Dummy report establishes the c: namespace for the imported nodes
+			$dummyReport = $reports->appendChild($doc->createElementNS(self::NAMESPACE_COUNTER, 'c:Report'));
+			foreach ($this->_results->childNodes as $child) {
+				$report = $doc->importNode($child, true);
+				$reports->appendChild($report);
+			}
+			$response->appendChild($reports);
+			// Remove dummy report after establishing $reports
+			$reports->removeChild($dummyReport);
 		}
 		return $doc;
 	}

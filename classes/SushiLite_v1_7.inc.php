@@ -67,7 +67,7 @@ class SushiLite_v1_7 extends SushiLite {
 							$counter = $this->getCounterPlugin();
 							$reporter = $counter->getReporter($this->_selected_report, $this->_selected_release);
 							if ($reporter) {
-								$xmlResult = $reporter->getMetricsXML($this->_metrics_columns, $this->_metrics_filter, $this->_metrics_orderBy, $this->_metrics_range);
+								$xmlResult = $reporter->createXML($reporter->getReportItems($this->_metrics_columns, $this->_metrics_filter, $this->_metrics_orderBy, $this->_metrics_range));
 								if ($xmlResult) {
 									$xml = new DOMDocument();
 									$xml->loadXML($xmlResult);
@@ -464,37 +464,30 @@ class SushiLite_v1_7 extends SushiLite {
 	 */
 	function parseReport($params) {
 		$counter = $this->getCounterPlugin();
-		// Check requested release: default it to the current release if not provided, set it to an impossible release if not valid
+		// Check requested release: default it to the current release if not provided, unset release if not valid.
 		if (!isset($params['Release'])) {
-			$release = $counter->getLatestRelease();
-		} elseif (in_array($params['Release'], $counter->getValidReleases(), TRUE)) {
+			$release = $counter->getCurrentRelease();
+		} elseif ($params['Release'] == $counter->getCurrentRelease()) {
 			$release = $params['Release'];
-		} elseif (in_array($params['Release'].'.0', $counter->getValidReleases(), TRUE)) {
+		} elseif ($params['Release'].'.0' == $counter->getCurrentRelease()) {
 			$release = $params['Release'].'.0';
 		} else {
-			$release = "0";
+			$release = "";
 		}
-		// Check the requested report. If not available in the requested release, search other releases to see if we support it otherwise
+		// Check the requested report. Warn if report is supported but requested release was invalid.
 		if (isset($params['Report'])) {
 			$reports = $counter->getValidReports();
-			if (isset($reports[$release][$params['Report']])) {
-				$this->_report = $reports[$release][$params['Report']];
+			if (isset($reports[$params['Report']])) {
+				$this->_report = $reports[$params['Report']];
 				$this->_selected_report = $params['Report'];
 				$this->_selected_release = str_replace('.', '_', $release);
+				// if we found the report, but the release requested was wrong, this is a warning
+				if (!$release) {
+					$release = $counter->getCurrentRelease();
+					$this->createError(3010, SUSHI_ERROR_SEVERITY_WARNING, __('plugins.generic.sushiLite.error.reportExistsInRelease', array('release' => $release)));
+				}
 			} else {
-				arsort($reports);
-				$found = 0;
-				foreach ($reports as $release => $available) {
-					if (isset($available[$params['Report']])) {
-						$found = $release;
-						break;
-					}
-				}
-				if ($found) {
-					$this->createError(3010, SUSHI_ERROR_SEVERITY_ERROR, __('plugins.generic.sushiLite.error.reportExistsInRelease', array('release' => $release)));
-				} else {
-					$this->createError(3000, SUSHI_ERROR_SEVERITY_ERROR);
-				}
+				$this->createError(3000, SUSHI_ERROR_SEVERITY_ERROR);
 			}
 		} else {
 			$this->createError(3000, SUSHI_ERROR_SEVERITY_ERROR, __('plugins.generic.sushiLite.error.noReportProvided'));

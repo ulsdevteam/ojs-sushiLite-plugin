@@ -12,4 +12,4 @@ This plugin provides the NISO SUSHI-Lite standard for PKP Open Journal Systems.
 
 ## Usage
 
-Install and enable this plugin in OJS.  The URI *{base_url}*/sushiLite/*{version}*/ will respond to the GetReport requests as documented in the the SUSHI-Lite proposal.
+Install and enable this plugin in OJS.  The URI *{base_url}*/sushiLite/*{version}*/ will respond to the GetReport requests as documented in the the [SUSHI-Lite proposal] (http://www.niso.org/workrooms/sushi/sushi_lite/).

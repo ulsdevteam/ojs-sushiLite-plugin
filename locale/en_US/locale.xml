@@ -14,15 +14,37 @@
 	<message key="plugins.generic.sushiLite.plugin.name">SUSHI-Lite</message>
 	<message key="plugins.generic.sushiLite.plugin.description">Provides a SUSHI-Lite interface for usage statistics harvesting.</message>
 
-	<message key="plugins.generic.sushiLite.manager.settings">Settings</message>
 	<message key="plugins.generic.sushiLite.manager.test">Test</message>
 
+	<message key="plugins.generic.sushiLite.serviceDescription.pageTitle">SUSHI-Lite service</message>
+	<message key="plugins.generic.sushiLite.serviceDescription.description">This endpoint provides a SUSHI-Lite service interface.</message>
+
 	<message key="plugins.generic.sushiLite.settingsForm.pageTitle">SUSHI-Lite settings</message>
-	<message key="plugins.generic.sushiLite.settingsForm.description">You can customize SUSHI-Lite with the form below.</message>
+	<message key="plugins.generic.sushiLite.settingsForm.description">You can customize access to SUSHI-Lite by enabling or disabling anonymous access and by adding allowed requestors.  Requestors can be required to provide the RequestorID and/or the APIKey parameters for authentication and authorization.</message>
+	<message key="plugins.generic.sushiLite.settingsForm.siteSettings">Requestors for this Site</message>
+	<message key="plugins.generic.sushiLite.settingsForm.journalSettings">Requestors for this Journal</message>
+	<message key="plugins.generic.sushiLite.settingsForm.disallowAnonymous">Do not allow anonymous requests.</message>
+	<message key="plugins.generic.sushiLite.settingsForm.requestorId">Requestor Identifier</message>
+	<message key="plugins.generic.sushiLite.settingsForm.requestorIdRequired">A value for Requestor ID is required.</message>
+	<message key="plugins.generic.sushiLite.settingsForm.requestorIdReq">RequestorID required?</message>
+	<message key="plugins.generic.sushiLite.settingsForm.requestorIdReqRequired">Please select an option for requiring the Requestor ID.</message>
+	<message key="plugins.generic.sushiLite.settingsForm.requestorIdReqTrue">Yes, required.</message>
+	<message key="plugins.generic.sushiLite.settingsForm.requestorIdReqFalse">No, optional.</message>
+	<message key="plugins.generic.sushiLite.settingsForm.requestorApiKey">Requestor API Key</message>
+	<message key="plugins.generic.sushiLite.settingsForm.requestorApiKeyInstructions">If provided, the APIKey parameter will be required for SUSHI-Lite access by this requestor.</message>
+	<message key="plugins.generic.sushiLite.settingsForm.requestorName">Requestor Name</message>
+	<message key="plugins.generic.sushiLite.settingsForm.requestorNameRequired">Requestor Name is required.</message>
+	<message key="plugins.generic.sushiLite.settingsForm.actions">Actions</message>
+	<message key="plugins.generic.sushiLite.settingsForm.delete">Delete</message>
+	<message key="plugins.generic.sushiLite.settingsForm.edit">Edit</message>
+	<message key="plugins.generic.sushiLite.settingsForm.new">New Requestor</message>
+	<message key="plugins.generic.sushiLite.settingsForm.generateUUID">New</message>
 
 	<message key="plugins.generic.sushiLite.error.internalError">An internal error has occurred.</message>
 	<message key="plugins.generic.sushiLite.error.noReportProvided">No report was provided.</message>
 	<message key="plugins.generic.sushiLite.error.reportExistsInRelease">The requested report exists in release {$release}.</message>
+	<message key="plugins.generic.sushiLite.error.apiKeyNotUUID">API Key is not formatted as a UUID.</message>
+	<message key="plugins.generic.sushiLite.error.requestorIdNotUUID">Requstor ID is not formatted as a UUID.</message>
 
 	<message key="plugins.generic.sushiLite.testForm.pageTitle">SUSHI-Lite testing</message>
 	<message key="plugins.generic.sushiLite.testForm.description">You can generate SUSHI-Lite requests dynamically with the form below.</message>
@@ -36,7 +58,6 @@
 	<message key="plugins.generic.sushiLite.testForm.requestorId">Requestor ID</message>
 	<message key="plugins.generic.sushiLite.testForm.customerId">Customer ID</message>
 	<message key="plugins.generic.sushiLite.testForm.apiKey">API Key</message>
-	<message key="plugins.generic.sushiLite.testForm.apiKeyNotUUID">API Key is not formatted as a UUID.</message>
 	<message key="plugins.generic.sushiLite.testForm.apiKeyInvalid">API Key is not valid.</message>
 	<message key="plugins.generic.sushiLite.testForm.reportFilters">Report Filters</message>
 	<message key="plugins.generic.sushiLite.testForm.dateRange">Date Range</message>

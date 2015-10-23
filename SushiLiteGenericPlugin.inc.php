@@ -13,6 +13,7 @@
  */
 
 import('classes.plugins.GenericPlugin');
+import('plugins.generic.sushiLite.classes.SushiRequestor');
 
 class SushiLiteGenericPlugin extends GenericPlugin {
 
@@ -102,7 +103,7 @@ class SushiLiteGenericPlugin extends GenericPlugin {
 	function getManagementVerbs() {
 		$verbs = array();
 		if ($this->getEnabled()) {
-			$verbs[] = array('settings', __('plugins.generic.sushiLite.manager.settings'));
+			$verbs[] = array('settings', __('manager.plugins.settings'));
 			$verbs[] = array('test', __('plugins.generic.sushiLite.manager.test'));
 		}
 		return parent::getManagementVerbs($verbs);
@@ -134,6 +135,71 @@ class SushiLiteGenericPlugin extends GenericPlugin {
 
 				$this->import('SushiLiteSettingsForm');
 				$form = new SushiLiteSettingsForm($this, $journal->getId());
+				if (count($args) > 0 && $args[0] == 'delete') {
+					$success = false;
+					if (Request::getUserVar('requestorId')) {
+						$requestor = new SushiRequestor($this->getCategory(), $this->getName(), $journal->getId(), Request::getUserVar('requestIndex'));
+						if ($requestor->exists()) {
+							$requestor->delete();
+							$success = true;
+						} elseif (Validation::isSiteAdmin()) {
+							$requestor = new SushiRequestor($this->getCategory(), $this->getName(), CONTEXT_SITE, Request::getUserVar('requestIndex'));
+							if ($requestor->exists()) {
+								$requestor->delete();
+								$success = true;
+							}
+						}
+					}
+					if (!$success) {
+						$user =& Request::getUser();
+						import('classes.notification.NotificationManager');
+						$notificationManager = new NotificationManager();
+						$notificationManager->createTrivialNotification($user->getId(), NOTIFICATION_TYPE_FORM_ERROR);
+					}
+				}
+				if (Request::getUserVar('new')) {
+					$templateMgr->assign('editing', true);
+				}
+				if (count($args) > 1 && $args[0] == 'edit') {
+					$success = false;
+					$requestor = new SushiRequestor($this->getCategory(), $this->getName(), $journal->getId(), $args[1]);
+					if ($requestor->exists()) {
+						$success = true;
+					} elseif (Validation::isSiteAdmin()) {
+						$requestor = new SushiRequestor($this->getCategory(), $this->getName(), CONTEXT_SITE, $args[1]);
+						if ($requestor->exists()) {
+							$success = true;
+						}
+					}
+					if ($success) {
+						$templateMgr->assign('requestor_name', $requestor->getData('name'));
+						$templateMgr->assign('requestor_id', $requestor->getData('id'));
+						$templateMgr->assign('requestor_idRequired', $requestor->getData('idRequired'));
+						$templateMgr->assign('requestor_apiKey', $requestor->getData('apiKey'));
+						$templateMgr->assign('editing', true);
+						$templateMgr->assign('stored_requestor', true);
+					} else {
+						$user =& Request::getUser();
+						import('classes.notification.NotificationManager');
+						$notificationManager = new NotificationManager();
+						$notificationManager->createTrivialNotification($user->getId(), NOTIFICATION_TYPE_FORM_ERROR);
+					}
+				}
+				if (Request::getUserVar('saveEdit')) {
+					$this->import('SushiLiteRequestorForm');
+					$subForm = new SushiLiteRequestorForm($this, $journal->getId());
+					$subForm->readInputData();
+					if ($subForm->validate()) {
+						$subForm->execute();
+						$user =& Request::getUser();
+						import('classes.notification.NotificationManager');
+						$notificationManager = new NotificationManager();
+						$notificationManager->createTrivialNotification($user->getId());
+						Request::redirect(null, 'manager', 'plugins', 'generic', 'settings');
+						return false;
+					}
+					$templateMgr->assign('editing', true);
+				}
 				if (Request::getUserVar('save')) {
 					$form->readInputData();
 					if ($form->validate()) {

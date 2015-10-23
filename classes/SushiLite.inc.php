@@ -161,13 +161,13 @@ class SushiLite {
 		$requestor->appendChild($doc->createElement('Name'));
 		$requestor->appendChild($doc->createElement('Email'));
 		$response->appendChild($requestor);
-		$response->appendChild($doc->createElement('CustomerReference')->appendChild($doc->createElement('ID', $this->_customer)));
 		$customer = $doc->createElement('CustomerReference');
 		$customer->appendChild($doc->createElement('ID', $this->_customer));
 		$response->appendChild($customer);
 		if (get_class($this->_results) == 'DOMElement') {
 			$response->appendChild($doc->importNode($this->_results, true));
 		}
+		$doc->appendChild($response);
 		return $doc;
 	}
 

@@ -18,7 +18,13 @@ Install this as a "generic" plugin in OJS.  To install manually via the filesyst
 
 ## Usage
 
-The URI *{base_url}*/sushiLite/*{version}*/ will respond to the GetReport requests as documented in the the SUSHI-Lite proposal.
+The URI *{base_url}*/sushiLite/*{version}*/ will respond to the GetReport requests as documented in the the [SUSHI-Lite proposal](http://www.niso.org/workrooms/sushi/sushi_lite/).  The currently support SUSHI-Lite version is 1.7.  For example:
+* Fetch the current AR1, reflecting the last month's usage, for any journal hosted on the site:
+  * /ojs/index.php/index/sushiLite/v1_7/GetReport?Report=AR1
+* Fetch the release 4.1 JR1 for all of 2015 for "myJournal":
+  * /ojs/index.php/myJournal/sushiLite/v1_7/GetReport?Report=JR1&Release=4.1&BeginDate=2015-01-01&EndDate=2015-12-31
+
+Your base URL and journal name will vary.
 
 ## Author / License
 

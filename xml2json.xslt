@@ -141,7 +141,7 @@
   <!-- item:null -->
   <xsl:template match="*[count(child::node())=0]">
     <xsl:call-template name="escape-string">
-      <xsl:with-param name="s" select="local-name()"/>
+      <xsl:with-param name="s" select="name()"/>
     </xsl:call-template>
     <xsl:text>:null</xsl:text>
     <xsl:if test="following-sibling::*">,</xsl:if>

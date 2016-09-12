@@ -160,6 +160,10 @@ class SushiLite {
 		$doc =  new DOMDocument();
 		$doc->formatOutput = true;
 		$response = $doc->appendChild($doc->createElementNS(self::NAMESPACE_SUSHI_COUNTER, 'sc:ReportResponse'));
+		$response->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:s', self::NAMESPACE_SUSHI);
+		$response->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:c', self::NAMESPACE_COUNTER);
+		$response->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:sc', self::NAMESPACE_SUSHI_COUNTER);
+		$response->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xsi', "http://www.w3.org/2001/XMLSchema-instance");
 		$xmlns = $doc->createAttributeNS('http://www.w3.org/2001/XMLSchema-instance', 'xsi:schemaLocation');
 		$xmlns->value = self::NAMESPACE_SUSHI.' http://www.niso.org/schemas/sushi/sushi1_7.xsd '.
 			self::NAMESPACE_SUSHI_COUNTER.' http://www.niso.org/schemas/sushi/sushi_counter4_1.xsd ';

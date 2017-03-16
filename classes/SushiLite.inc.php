@@ -297,6 +297,22 @@ class SushiLite {
 	}
 
 	/**
+	 * Get the filter allowed
+	 * @return array
+	 */
+	function validFilters() {
+		return array();
+	}
+
+	/**
+	 * Get the attributes allowed
+	 * @return array
+	 */
+	function validAttributes() {
+		return array();
+	}
+
+	/**
 	 * Get the requestor
 	 * @return string
 	 */

@@ -23,7 +23,7 @@ class SushiLiteGenericPlugin extends GenericPlugin {
 		$success = parent::register($category, $path);
 		if (!Config::getVar('general', 'installed') || defined('RUNNING_UPGRADE')) return true;
 		
-		if($success) {
+		if($success && $this->getEnabled()) {
 			HookRegistry::register('LoadHandler', array(&$this, 'setupPublicHandler'));
 		}
 		return $success;

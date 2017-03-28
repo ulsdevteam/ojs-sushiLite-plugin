@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * plugins/generic/sushiLite/locale/pt_PT/sushiLite.xml
+  *
+  * Copyright (c) 2014 University of Pittsburgh
+  * Distributed under the GNU GPL v2 or later. For full terms see the file docs/COPYING.
+  *
+  * Localization strings.
+  -->
+ 
+<locale name="pt_PT" full_name="Português">
+	<message key="plugins.generic.sushiLite.error.0000">Informação:</message>
+	<message key="plugins.generic.sushiLite.error.0001">Erro: Método Não Suportado.</message>
+	<message key="plugins.generic.sushiLite.error.0060">Erro: Filtro sem valor correspondente; Filtro não aplicado.</message>
+	<message key="plugins.generic.sushiLite.error.1000">Serviço indisponível.</message>
+	<message key="plugins.generic.sushiLite.error.1010">Serviço ocupado.</message>
+	<message key="plugins.generic.sushiLite.error.1020">O cliente efetuou demasiados pedidos.</message>
+	<message key="plugins.generic.sushiLite.error.1030">Informação insuficiente para processar este pedido.</message>
+	<message key="plugins.generic.sushiLite.error.2000">Não está autorizado a utilizar estes serviço.</message>
+	<message key="plugins.generic.sushiLite.error.2010">Não está autorizado a aceder às estatísticas de uso da instituição.</message>
+	<message key="plugins.generic.sushiLite.error.2020">Chave API inválida.</message>
+	<message key="plugins.generic.sushiLite.error.3000">Relatório não suportado.</message>
+	<message key="plugins.generic.sushiLite.error.3010">Versão do Relatório não suportada.</message>
+	<message key="plugins.generic.sushiLite.error.3020">Argumento de data inválidos.</message>
+	<message key="plugins.generic.sushiLite.error.3030">Sem dados para as datas solicitadas.</message>
+	<message key="plugins.generic.sushiLite.error.3031">Os dados para o período solicitado não estão ainda disponíveis.</message>
+	<message key="plugins.generic.sushiLite.error.3040">Devolvidos dados parciais.</message>
+	<message key="plugins.generic.sushiLite.error.3050">Parâmetro não suportado.</message>
+	<message key="plugins.generic.sushiLite.error.3060">Valor do filtro inválido.</message>
+	<message key="plugins.generic.sushiLite.error.3061">Valor do filtro incongruente.</message>
+	<message key="plugins.generic.sushiLite.error.3062">Atributo do relátório com valor inválido.</message>
+	<message key="plugins.generic.sushiLite.error.3070">Filtro obrigatório em falta.</message>
+	<message key="plugins.generic.sushiLite.error.3071">Atributo de relatório em falta.</message>
+	<message key="plugins.generic.sushiLite.error.3080">O limite solicitado é maior do que o limite do servidor.</message>
+	<message key="plugins.generic.sushiLite.error.versionNotSupported">A versão pedida do SUSHI não é suportado pelo servidor.</message>
+	<message key="plugins.generic.sushiLite.error.versionsSupported">Os identificadores das versões suportadas incluem:</message>
+</locale>

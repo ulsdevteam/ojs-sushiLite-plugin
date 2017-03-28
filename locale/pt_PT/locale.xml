@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * plugins/generic/sushiLite/locale/pt_PT/locale.xml
+  *
+  * Copyright (c) 2014 University of Pittsburgh
+  * Distributed under the GNU GPL v2 or later. For full terms see the file docs/COPYING.
+  *
+  * Localization strings.
+  -->
+ 
+<locale name="pt_PT" full_name="Português">
+	<message key="plugins.generic.sushiLite.plugin.name">SUSHI-Lite</message>
+	<message key="plugins.generic.sushiLite.plugin.description">Disponibiliza um interface SUSHI-Lite para partilha de estatísticas de uso da revista.</message>
+
+	<message key="plugins.generic.sushiLite.manager.settings">Configurações</message>
+	<message key="plugins.generic.sushiLite.manager.test">Teste</message>
+
+	<message key="plugins.generic.sushiLite.settingsForm.pageTitle">Configurações SUSHI-Lite</message>
+	<message key="plugins.generic.sushiLite.settingsForm.description">Pode configurar o interface SUSHI-Lite no seguinte formulário.</message>
+
+	<message key="plugins.generic.sushiLite.error.internalError">Ocorreu um erro interno.</message>
+	<message key="plugins.generic.sushiLite.error.noReportProvided">Não foi disponibilizado nenhum relatório.</message>
+	<message key="plugins.generic.sushiLite.error.reportExistsInRelease">O relatório solicitado existe na versão {$release}.</message>
+
+	<message key="plugins.generic.sushiLite.testForm.pageTitle">Testar o interface SUSHI-Lite</message>
+	<message key="plugins.generic.sushiLite.testForm.description">Pode gerar pedidos SUSHI-Lite dinamicamente no seguinte formulário.</message>
+	<message key="plugins.generic.sushiLite.testForm.reportRequest">Pedido de Relatório</message>
+	<message key="plugins.generic.sushiLite.testForm.reportName">Nome do Relatório</message>
+	<message key="plugins.generic.sushiLite.testForm.reportName.required">É necessário um nome de Relatório.</message>
+	<message key="plugins.generic.sushiLite.testForm.reportName.IR1">Relatório de Itens - Item Report 1 (IR1)</message>
+	<message key="plugins.generic.sushiLite.testForm.reportName.JR1">Relatório da Revista - Journal Report 1 (JR1)</message>
+	<message key="plugins.generic.sushiLite.testForm.reportName.AR1">Relatório de Artigos - Article Report 1 (JR1)</message>
+	<message key="plugins.generic.sushiLite.testForm.ReportInvalid">O nome do relatório selecionado não é válido</message>
+	<message key="plugins.generic.sushiLite.testForm.requestorId">ID do Solicitador</message>
+	<message key="plugins.generic.sushiLite.testForm.customerId">ID do Cliente</message>
+	<message key="plugins.generic.sushiLite.testForm.apiKey">Chade da API</message>
+	<message key="plugins.generic.sushiLite.testForm.apiKeyNotUUID">A chave API não está formatada como uma UUID.</message>
+	<message key="plugins.generic.sushiLite.testForm.apiKeyInvalid">A chave API não é válida.</message>
+	<message key="plugins.generic.sushiLite.testForm.reportFilters">Filtros do Relatório</message>
+	<message key="plugins.generic.sushiLite.testForm.dateRange">Abrangência Temporal</message>
+	<message key="plugins.generic.sushiLite.testForm.dateRangeFormat">aaaa-mm-dd, aaaa-mm ou aaaa</message>
+	<message key="plugins.generic.sushiLite.testForm.DateBeginInvalid">O formato da data inicial não é válido.</message>
+	<message key="plugins.generic.sushiLite.testForm.DateEndInvalid">O formato da data final não é válido.</message>
+	<message key="plugins.generic.sushiLite.testForm.DateBeginAfterEnd">A data final é anterior à data de início.</message>
+	<message key="plugins.generic.sushiLite.testForm.itemIdentifier">ID do Item</message>
+	<message key="plugins.generic.sushiLite.testForm.itemIdentifier.scope.journal">Revista</message>
+	<message key="plugins.generic.sushiLite.testForm.itemIdentifier.scope.issue">Número</message>
+	<message key="plugins.generic.sushiLite.testForm.itemIdentifier.scope.article">Artigo</message>
+	<message key="plugins.generic.sushiLite.testForm.itemIdentifier.scope.book">Livro</message>
+	<message key="plugins.generic.sushiLite.testForm.itemIdentifier.scope.chapter">Capítulo</message>
+	<message key="plugins.generic.sushiLite.testForm.itemIdentifier.scope.publisher">Editor</message>
+	<message key="plugins.generic.sushiLite.testForm.ItemIdentfierScopeInvalid">ID do Item selecionado é inválido</message>
+	<message key="plugins.generic.sushiLite.testForm.itemIdentifier.type.issn">ISSN</message>
+	<message key="plugins.generic.sushiLite.testForm.itemIdentifier.type.doi">DOI</message>
+	<message key="plugins.generic.sushiLite.testForm.itemIdentifier.type.isbn">ISBN</message>
+	<message key="plugins.generic.sushiLite.testForm.itemIdentifier.type.isni">ISNI</message>
+	<message key="plugins.generic.sushiLite.testForm.itemIdentifier.type.proprietary">proprietário</message>
+	<message key="plugins.generic.sushiLite.testForm.ItemIdentfierTypeInvalid">Tipo do ID do Item não é válido</message>
+	<message key="plugins.generic.sushiLite.testForm.itemContributor">Autor</message>
+	<message key="plugins.generic.sushiLite.testForm.itemContributor.type.orcid">OrcID</message>
+	<message key="plugins.generic.sushiLite.testForm.itemContributor.type.isni">ISNI</message>
+	<message key="plugins.generic.sushiLite.testForm.itemContributor.type.proprietary">proprietário</message>
+	<message key="plugins.generic.sushiLite.testForm.ItemContributorTypeInvalid">O tipo de Autor na seleção não é válido</message>
+	<message key="plugins.generic.sushiLite.testForm.publisher">Editor</message>
+	<message key="plugins.generic.sushiLite.testForm.platform">Plataforma</message>
+	<message key="plugins.generic.sushiLite.testForm.platformInvalid">Platforma selecionada não é válida.</message>
+	<message key="plugins.generic.sushiLite.testForm.metricTypes">Tipos de Métricas</message>
+	<message key="plugins.generic.sushiLite.testForm.metricTypeInvalid">Tipo de métrica inválido.</message>
+	<message key="plugins.generic.sushiLite.testForm.pubYr">Ano de Publicação</message>
+	<message key="plugins.generic.sushiLite.testForm.PubYrInvalid">O formato do Ano de Publicação é inválido.</message>
+	<message key="plugins.generic.sushiLite.testForm.pubYrFrom">Ano de Publicação de</message>
+	<message key="plugins.generic.sushiLite.testForm.PubYrFromInvalid">O formato do "Ano de Publicação de" está inválido.</message>
+	<message key="plugins.generic.sushiLite.testForm.pubYrTo">Ano de Publicação até</message>
+	<message key="plugins.generic.sushiLite.testForm.PubYrToInvalid">O formato do "Ano de Publicação até" está inválido.</message>
+	<message key="plugins.generic.sushiLite.testForm.PubYrFromAfterTo">O "Ano de Publicação de" é maior do que o "Ano de Publicação até".</message>
+	<message key="plugins.generic.sushiLite.testForm.PubYrFromToConflict">O "Ano de Publicação de" e o "Ano de Publicação até" estão em conflito.</message>
+	<message key="plugins.generic.sushiLite.testForm.isArchive">Foi arquivado</message>
+	<message key="plugins.generic.sushiLite.testForm.IsArchiveInvalid">A flat "Is Archive" é inválida.</message>
+	<message key="plugins.generic.sushiLite.testForm.reportAttributes">Atributos do Relatório</message>
+	<message key="plugins.generic.sushiLite.testForm.granularity">Granularidade</message>
+	<message key="plugins.generic.sushiLite.testForm.granularity.totals">Totais</message>
+	<message key="plugins.generic.sushiLite.testForm.granularity.yearly">Anual</message>
+	<message key="plugins.generic.sushiLite.testForm.granularity.monthly">Mensal</message>
+	<message key="plugins.generic.sushiLite.testForm.granularity.daily">Diário</message>
+	<message key="plugins.generic.sushiLite.testForm.GranularityInvalid">A granularidade selecionada não é válida</message>
+	<message key="plugins.generic.sushiLite.testForm.format">Formato</message>
+	<message key="plugins.generic.sushiLite.testForm.format.json">JSON/JSONP</message>
+	<message key="plugins.generic.sushiLite.testForm.format.xml">XML</message>
+	<message key="plugins.generic.sushiLite.testForm.FormatInvalid">O formato selecionado não é válido</message>
+	<message key="plugins.generic.sushiLite.testForm.callback">Callback</message>
+	<message key="plugins.generic.sushiLite.testForm.callbackInvalid">Callback não se aplica a este formato (apenas JSPONP).</message>
+	<message key="plugins.generic.sushiLite.testForm.callbackJsonpAssumed">Callback disponibilizado, mas não definido para JSONP. Foi assumido o JSONP.</message>
+	<message key="plugins.generic.sushiLite.testForm.limit">Limite</message>
+	<message key="plugins.generic.sushiLite.testForm.limitInvalid">Limite inválido.</message>
+	<message key="plugins.generic.sushiLite.testForm.offset">Offset</message>
+	<message key="plugins.generic.sushiLite.testForm.offsetInvalid">Offset inválido.</message>
+	<message key="plugins.generic.sushiLite.testForm.orderBy">Ordenar Por</message>
+	<message key="plugins.generic.sushiLite.testForm.orderBy.asc">Ascendente</message>
+	<message key="plugins.generic.sushiLite.testForm.orderBy.des">Descendente</message>
+	<message key="plugins.generic.sushiLite.testForm.submit">Enviar</message>
+</locale>

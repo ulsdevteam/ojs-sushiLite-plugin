@@ -14,7 +14,7 @@ This plugin provides the NISO SUSHI-Lite standard for PKP Open Journal Systems.
 
 ## Installation
 
-Install this as a "generic" plugin in OJS.  To install manually via the filesystem, extract the contents of this archive to a directory (e.g. "sushiLite") under "plugins/generic" in your OJS root.  To install via Git submodule, target that same directory path: `git submodule add https://github.com/ulsdevteam/ojs-sushiLite-plugin plugins/generic/sushiLite` and `git submodule update --init --recursive plugins/generic/sushiLite`.  Run the upgrade script to register this plugin, e.g.: `php tools/upgrade.php upgrade`
+Install this as a "generic" plugin in OJS.  To install manually via the filesystem, extract the contents of this archive to a "sushiLite" directory under "plugins/generic" in your OJS root.  To install via Git submodule, target that same directory path: `git submodule add https://github.com/ulsdevteam/ojs-sushiLite-plugin plugins/generic/sushiLite` and `git submodule update --init --recursive plugins/generic/sushiLite`.  Run the upgrade script to register this plugin, e.g.: `php tools/upgrade.php upgrade`
 
 ## Usage
 

@@ -12,7 +12,7 @@
  * @brief Sushi Lite plugin provides a SUSHI-Lite implementation for usage statistics harvesting.
  */
 
-import('classes.plugins.GenericPlugin');
+import('lib.pkp.classes.plugins.GenericPlugin');
 
 class SushiLiteGenericPlugin extends GenericPlugin {
 

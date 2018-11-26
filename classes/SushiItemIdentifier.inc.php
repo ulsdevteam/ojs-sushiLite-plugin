@@ -3,8 +3,8 @@
 /**
  * @file plugins/generic/sushiLite/classes/SushiItemIdentifier.inc.php
  *
- * Copyright (c) 2014 University of Pittsburgh
- * Distributed under the GNU GPL v2 or later. For full terms see the file docs/COPYING.
+ * Copyright (c) University of Pittsburgh
+ * Distributed under the GNU GPL v2 or later. For full terms see the LICENSE file.
  *
  * @class SushiLite
  * @ingroup plugins_generic_sushilite
@@ -58,9 +58,7 @@ class SushiItemIdentifier {
 			$types[] = 'proprietary';
 		}
 		// ensure selected type is valid for the selected scope
-		import('lib.pkp.classes.validation.ValidatorInSet');
-		$validator = new ValidatorInSet($types);
-		if (!$validator->isValid($this->_type)) {
+		if (!in_array($this->_type, $types)) {
 			$this->_isValid = false;
 		}
 		// if type is well known, ensure value is correctly formed
@@ -127,18 +125,18 @@ class SushiItemIdentifier {
 	 * @return array() populated as key-value pairs for $filter in MetricsDAO::getMetrics(), or empty if no matches found
 	 */
 	function _getFilterJournal() {
-		$journalDao =& DAORegistry::getDAO('JournalDAO');
+		$journalDao = DAORegistry::getDAO('JournalDAO');
 		$journal = NULL;
 		switch ($this->_type) {
 			case 'issn':
-				$journals =& $journalDao->getBySetting('printIssn', $this->_value);
+				$journals = $journalDao->getBySetting('printIssn', $this->_value);
 				while (!$journals->eof()) {
-					$journal =& $journals->next();
+					$journal = $journals->next();
 				}
 				if (!$journal) {
-					$journals =& $journalDao->getBySetting('onlineIssn', $this->_value);
+					$journals = $journalDao->getBySetting('onlineIssn', $this->_value);
 					while (!$journals->eof()) {
-						$journal =& $journals->next();
+						$journal = $journals->next();
 					}
 				}
 				break;
@@ -163,7 +161,7 @@ class SushiItemIdentifier {
 	 * @return array() populated as key-value pairs for $filter in MetricsDAO::getMetrics(), or empty if no matches found
 	 */
 	function _getFilterIssue() {
-		$issueDao =& DAORegistry::getDAO('IssueDAO');
+		$issueDao = DAORegistry::getDAO('IssueDAO');
 		$issue = NULL;
 		switch ($this->_type) {
 			case 'doi':
@@ -177,7 +175,7 @@ class SushiItemIdentifier {
 		}
 		if ($issue) {
 			/*
-			$articleDao =& DAORegistry::getDAO('PublishedArticleDAO');
+			$articleDao = DAORegistry::getDAO('PublishedArticleDAO');
 			$articles = $articleDao->getPublishedArticles($issue->getId());
 			$articleList = array();
 			foreach ($articles as $article) {
@@ -196,7 +194,7 @@ class SushiItemIdentifier {
 	 * @return array() populated as key-value pairs for $filter in MetricsDAO::getMetrics(), or empty if no matches found
 	 */
 	function _getFilterArticle() {
-		$articleDao =& DAORegistry::getDAO('PublishedArticleDAO');
+		$articleDao = DAORegistry::getDAO('PublishedArticleDAO');
 		$article = NULL;
 		switch ($this->_type) {
 			case 'doi':
@@ -239,5 +237,3 @@ class SushiItemIdentifier {
 	}
 
 }
-
-?>

@@ -4,14 +4,14 @@
 <!--
   * plugins/generic/sushiLite/version.xml
   *
-  * Copyright (c) 2003-2014 University of Pittsburgh
-  * Distributed under the GNU GPL v2 or later. For full terms see the file docs/COPYING.
+  * Copyright (c) University of Pittsburgh
+  * Distributed under the GNU GPL v2 or later. For full terms see the LICENSE file.
   *
   * Plugin version information.
   -->
 <version>
 	<application>sushiLite</application>
 	<type>plugins.generic</type>
-	<release>1.0.0.0</release>
-	<date>2014-10-01</date>
+	<release>1.1.0.0</release>
+	<date>2018-12-03</date>
 </version>

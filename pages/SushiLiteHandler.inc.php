@@ -3,8 +3,8 @@
 /**
  * @file plugins/generic/sushiLite/pages/SushiLiteHandler.inc.php
  *
- * Copyright (c) 2014 University of Pittsburgh
- * Distributed under the GNU GPL v2 or later. For full terms see the file docs/COPYING.
+ * Copyright (c) University of Pittsburgh
+ * Distributed under the GNU GPL v2 or later. For full terms see the LICENSE file.
  *
  * @class SushiLiteHandler
  * @ingroup plugins_generic_sushilite
@@ -28,15 +28,11 @@ class SushiLiteHandler extends Handler {
 	 * @param $args array
 	 * @param $request Request
 	 */
-	function index($args, &$request) {
-		$router =& $request->getRouter();
-		$journal =& $router->getContext($request);
+	function index($args, $request) {
 		$version = Request::getRequestedOp($request);
-		$plugin =& PluginRegistry::getPlugin('generic', 'SushiLiteGenericPlugin');
+		$plugin = PluginRegistry::getPlugin('generic', 'SushiLiteGenericPlugin');
 		$sushi = $plugin->getSushi($version);
 		$sushi->processRequest(count($args) ? $args[0] : '', $request);
 	}
 
 }
-
-?>

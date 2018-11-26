@@ -3,8 +3,8 @@
 /**
  * @file plugins/generic/sushiLite/classes/SushiLite.inc.php
  *
- * Copyright (c) 2014 University of Pittsburgh
- * Distributed under the GNU GPL v2 or later. For full terms see the file docs/COPYING.
+ * Copyright (c) University of Pittsburgh
+ * Distributed under the GNU GPL v2 or later. For full terms see the LICENSE file.
  *
  * @class SushiLite
  * @ingroup plugins_generic_sushilite
@@ -73,7 +73,7 @@ class SushiLite {
 	 * @return object
 	 */
 	function &getParentPlugin() {
-		$plugin =& PluginRegistry::getPlugin($this->_parentPluginCategory, $this->_parentPluginName);
+		$plugin = PluginRegistry::getPlugin($this->_parentPluginCategory, $this->_parentPluginName);
 		return $plugin;
 	}
 	
@@ -320,5 +320,3 @@ class SushiLite {
 		return $this->_requestor;
 	}
 }
-
-?>

@@ -3,8 +3,8 @@
 /**
  * @file plugins/generic/sushiLite/classes/SushiLite_v1_7.inc.php
  *
- * Copyright (c) 2014 University of Pittsburgh
- * Distributed under the GNU GPL v2 or later. For full terms see the file docs/COPYING.
+ * Copyright (c) University of Pittsburgh
+ * Distributed under the GNU GPL v2 or later. For full terms see the LICENSE file.
  *
  * @class SushiLite_v1_7
  * @ingroup plugins_generic_sushilite
@@ -40,8 +40,8 @@ class SushiLite_v1_7 extends SushiLite {
 		$params = $request->getQueryArray();
 		if ($method == SUSHI_LITE_METHOD_INDEX) {
 			// The index method is just a human readable page
-			$templateMgr =& TemplateManager::getManager();
-			$templateMgr->assign('sushiLiteVersion', '1.0');
+			$templateMgr = TemplateManager::getManager();
+			$templateMgr->assign('sushiLiteVersion', '1.7');
 			$plugin = $this->getParentPlugin();
 			$templateMgr->display($plugin->getTemplatePath() .'/describeService.tpl');
 		} else {
@@ -301,13 +301,11 @@ class SushiLite_v1_7 extends SushiLite {
 		// METRIC TYPES
 		if (isset($params['MetricTypes']) && !('' == $params['MetricTypes'])) {
 			$this->_filters['MetricTypes'] = $params['MetricTypes'];
-			import('lib.pkp.classes.validation.ValidatorInSet');
-			$validator = new ValidatorInSet($this->validMetrics());
 			foreach (explode('|', $params['MetricTypes']) as $metrictype) {
-				if ($metrictype == '') {
+				if (!$metrictype) {
 					continue;
 				}
-				if ($validator->isValid($metrictype)) {
+				if (in_array($metrictype, $this->validMetrics())) {
 					//$this->_metrics_filter['...'] = isset($this->filters['MetricTypes']) ? $this->filters['MetricTypes'] . '|' . $metrictype : $metrictype;
 				} else {
 					$this->createError(3060, SUSHI_ERROR_SEVERITY_WARNING, '', null, $metrictype);
@@ -356,9 +354,7 @@ class SushiLite_v1_7 extends SushiLite {
 
 		// IS ARCHIVE
 		if (isset($params['isArchive']) && !('' == $params['isArchive'])) {
-			import('lib.pkp.classes.validation.ValidatorInSet');
-			$validator = new ValidatorInSet(array('Y', 'N', 'YES', 'NO'));
-			if ($validator->isValid(strtoupper($params['isArchive']))) {
+			if (in_array(strtoupper($params['isArchive']), array('Y', 'N', 'YES', 'NO'))) {
 				$this->createError(3060, SUSHI_LITE_ERROR_SEVERITY_ERROR, __("plugins.generic.sushiLite.testForm.IsArchiveInvalid"));
 			} else {
 				$this->_filters['isArchive'] = ucfirst(strtolower($params['isArchive']));
@@ -374,14 +370,12 @@ class SushiLite_v1_7 extends SushiLite {
 	 */
 	function parseAttributes($params) {
 		// Check each possible Attribute. If invalid flag an error.
-		import('lib.pkp.classes.validation.ValidatorInSet');
 		$this->_attributes = array();
 
 		// GRANULARITY
 		if (isset($params['Granularity']) && !('' == $params['Granularity'])) {
 			$this->_attributes['Granularity'] = ucfirst(strtolower($params['Granularity']));
-			$validator = new ValidatorInSet(array('Totals', 'Yearly', 'Monthly', 'Daily'));
-			if (!$validator->isValid(ucfirst(strtolower($params['Granularity'])))) {
+			if (!in_array(ucfirst(strtolower($params['Granularity'])), array('Totals', 'Yearly', 'Monthly', 'Daily'))) {
 				$this->createError(3061, SUSHI_LITE_ERROR_SEVERITY_ERROR, __("plugins.generic.sushiLite.testForm.GranularityInvalid"));
 			} else {
 				// TODO: $this->_metrics_columns should be set based on the aggregation here
@@ -391,8 +385,7 @@ class SushiLite_v1_7 extends SushiLite {
 
 		// FORMAT and CALLBACK
 		if (isset($params['Format']) && !('' == $params['Format'])) {
-			$validator = new ValidatorInSet(array('json', 'jsonp', 'xml'));
-			if (!$validator->isValid($params['Format'])) {
+			if (!in_array($params['Format'], array('json', 'jsonp', 'xml'))) {
 				$this->createError(3061, SUSHI_LITE_ERROR_SEVERITY_ERROR, __("plugins.generic.sushiLite.testForm.FormatInvalid"));
 			}
 		}
@@ -520,5 +513,3 @@ class SushiLite_v1_7 extends SushiLite {
 		return array('ft_ps', 'ft_ps_mobile', 'ft_pdf', 'ft_pdf_mobile', 'ft_html', 'ft_html_mobile', 'ft_epub', 'sectioned_html', 'ft_total', 'toc', 'abstract', 'reference', 'data_set', 'audio', 'video', 'image', 'podcast', 'multimedia', 'record_view', 'result_click', 'search_reg', 'turnaway', 'no_license', 'other');
 	}
 }
-
-?>

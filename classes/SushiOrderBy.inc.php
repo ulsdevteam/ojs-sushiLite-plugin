@@ -3,8 +3,8 @@
 /**
  * @file plugins/generic/sushiLite/classes/SushiOrderBy.inc.php
  *
- * Copyright (c) 2014 University of Pittsburgh
- * Distributed under the GNU GPL v2 or later. For full terms see the file docs/COPYING.
+ * Copyright (c) University of Pittsburgh
+ * Distributed under the GNU GPL v2 or later. For full terms see the LICENSE file.
  *
  * @class SushiLite
  * @ingroup plugins_generic_sushilite
@@ -59,5 +59,3 @@ class SushiOrderBy {
 	}
 
 }
-
-?>

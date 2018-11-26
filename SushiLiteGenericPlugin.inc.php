@@ -3,8 +3,8 @@
 /**
  * @file plugins/generic/sushiLite/SushiLitePlugin.inc.php
  *
- * Copyright (c) 2014 University of Pittsburgh
- * Distributed under the GNU GPL v2 or later. For full terms see the file docs/COPYING.
+ * Copyright (c) University of Pittsburgh
+ * Distributed under the GNU GPL v2 or later. For full terms see the LICENSE file.
  *
  * @class CounterReportPlugin
  * @ingroup plugins_generic_sushilite
@@ -12,7 +12,7 @@
  * @brief Sushi Lite plugin provides a SUSHI-Lite implementation for usage statistics harvesting.
  */
 
-import('classes.plugins.GenericPlugin');
+import('lib.pkp.classes.plugins.GenericPlugin');
 
 class SushiLiteGenericPlugin extends GenericPlugin {
 
@@ -65,124 +65,11 @@ class SushiLiteGenericPlugin extends GenericPlugin {
 	}
 
 	/**
-	 * Set the page's breadcrumbs, given the plugin's tree of items
-	 * to append.
-	 * @param $isSubclass boolean
-	 */
-	function setBreadcrumbs($isSubclass = false) {
-		$templateMgr =& TemplateManager::getManager();
-		$pageCrumbs = array(
-			array(
-				Request::url(null, 'user'),
-				'navigation.user'
-			),
-			array(
-				Request::url(null, 'manager'),
-				'user.role.manager'
-			)
-		);
-		if ($isSubclass) {
-			$pageCrumbs[] = array(
-				Request::url(null, 'manager', 'plugins'),
-				'manager.plugins'
-			);
-			$pageCrumbs[] = array(
-				Request::url(null, 'manager', 'plugins', 'generic'),
-				'plugins.categories.generic'
-			);
-		}
-
-		$templateMgr->assign('pageHierarchy', $pageCrumbs);
-	}
-
-	/**
-	 * Display verbs for the management interface.
-	 * @return array of verb => description pairs
-	 */
-	function getManagementVerbs() {
-		$verbs = array();
-		if ($this->getEnabled()) {
-			$verbs[] = array('settings', __('plugins.generic.sushiLite.manager.settings'));
-			$verbs[] = array('test', __('plugins.generic.sushiLite.manager.test'));
-		}
-		return parent::getManagementVerbs($verbs);
-	}
-
-	/**
-	 * Execute a management verb on this plugin
-	 * @param $verb string
-	 * @param $args array
-	 * @param $message string Result status message
-	 * @param $messageParams array Parameters for the message key
-	 * @return boolean
-	 */
-	function manage($verb, $args, &$message, &$messageParams) {
-		if (!parent::manage($verb, $args, $message, $messageParams)) {
-			// If enabling this plugin, go directly to the settings
-			if ($verb == 'enable') {
-				$verb = 'settings';
-			} else {
-				return false;
-			}
-		}
-
-		switch ($verb) {
-			case 'settings':
-				$templateMgr =& TemplateManager::getManager();
-				$templateMgr->register_function('plugin_url', array(&$this, 'smartyPluginUrl'));
-				$journal =& Request::getJournal();
-
-				$this->import('SushiLiteSettingsForm');
-				$form = new SushiLiteSettingsForm($this, $journal->getId());
-				if (Request::getUserVar('save')) {
-					$form->readInputData();
-					if ($form->validate()) {
-						$form->execute();
-						$user =& Request::getUser();
-						import('classes.notification.NotificationManager');
-						$notificationManager = new NotificationManager();
-						$notificationManager->createTrivialNotification($user->getId());
-						Request::redirect(null, 'manager', 'plugins', 'generic');
-						return false;
-					}
-				} else {
-					$form->initData();
-				}
-				$this->setBreadCrumbs(true);
-				$form->display();
-				return true;
-			case 'test':
-				$templateMgr =& TemplateManager::getManager();
-				$templateMgr->register_function('plugin_url', array(&$this, 'smartyPluginUrl'));
-				$journal =& Request::getJournal();
-
-				$this->import('SushiLiteTestForm');
-				$form = new SushiLiteTestForm($this, $journal->getId());
-				if (Request::getUserVar('formatSushiLite')) {
-					$form->readInputData();
-					if ($form->validate()) {
-						$form->execute();
-					}
-				} else {
-					$form->initData();
-				}
-				$this->setBreadCrumbs(true);
-				$form->assignTemplateValues($templateMgr);
-				$form->display();
-				return true;
-			default:
-				// Unknown management verb
-				assert(false);
-				return false;
-		}
-	}
-	
-	/**
 	 * Get page handler path for this plugin.
 	 * @return string Path to plugin's page handler
 	 */
 	function getHandlerPath() {
-		return $this->getPluginPath() . DIRECTORY_SEPARATOR . 'pages';
+		return 'pages';
 	}
 	
 	/**
@@ -202,12 +89,11 @@ class SushiLiteGenericPlugin extends GenericPlugin {
 		$page = $params[0];
 		if ($page == 'sushiLite') {
 			define('HANDLER_CLASS', 'SushiLiteHandler');
-			AppLocale::requireComponents(LOCALE_COMPONENT_APPLICATION_COMMON);
-			$newop =& $params[1];
-			$newop = 'index';
-			$handlerFile =& $params[2];
-			$handlerFile = $this->getHandlerPath() . DIRECTORY_SEPARATOR . HANDLER_CLASS . '.inc.php';
+			$this->import($this->getHandlerPath().DIRECTORY_SEPARATOR.HANDLER_CLASS);
+			$params[1] = 'index';
+			return true;
 		}
+		return false;
 	}	 
 
 	
@@ -299,4 +185,3 @@ class SushiLiteGenericPlugin extends GenericPlugin {
 
 	
 }
-?>

@@ -1,6 +1,6 @@
 # SUSHI Lite plugin
 
-This plugin provides the NISO SUSHI-Lite standard for PKP software.
+This plugin provides the NISO SUSHI-Lite standard (2015 draft release) for PKP software.
 
 ## Requirements
 
@@ -8,7 +8,7 @@ This plugin provides the NISO SUSHI-Lite standard for PKP software.
   * UsageStats plugin configured and enabled
   * For full standards compliance, disable_path_info should remain off
     * see: config.inc.php's general section and the disable_path_info directive for details.
-* PHP 5.3 or later
+* PHP 7.1 or later
   * libxml enabled
 
 ## Installation

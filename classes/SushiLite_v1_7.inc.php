@@ -43,7 +43,13 @@ class SushiLite_v1_7 extends SushiLite {
 			$templateMgr = TemplateManager::getManager();
 			$templateMgr->assign('sushiLiteVersion', '1.7');
 			$plugin = $this->getParentPlugin();
-			$templateMgr->display($plugin->getTemplatePath() .'/describeService.tpl');
+			if (method_exists($plugin, 'getTemplateResource')) {
+				// OJS 3.1.2 and later
+				$templateMgr->display($plugin->getTemplateResource('describeService.tpl'));
+			} else {
+				// OJS 3.1.1 and earlier
+				$templateMgr->display($plugin->getTemplatePath() . 'describeService.tpl');
+			}
 		} else {
 			// The programatic methods should be authorized and then parsed then printed
 			if ($this->authorize($params)) {

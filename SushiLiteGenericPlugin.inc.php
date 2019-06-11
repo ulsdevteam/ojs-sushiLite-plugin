@@ -54,7 +54,16 @@ class SushiLiteGenericPlugin extends GenericPlugin {
 	 * @see PKPPlugin::getTemplatePath()
 	 */
 	function getTemplatePath($inCore = false) {
-		return parent::getTemplatePath($inCore) . 'templates';
+		$templatePath = parent::getTemplatePath($inCore);
+		// OJS 3.1.2 and later include the 'templates' directory, but no trailing slash
+		$templateDir = 'templates';
+		if (strlen($templatePath) >= strlen($templateDir)) {
+			if (substr_compare($templatePath, $templateDir, strlen($templatePath) - strlen($templateDir), strlen($templateDir)) === 0) {
+				return $templatePath;
+			}
+		}
+		// OJS 3.1.1 and earlier includes a trailing slash to the plugin path
+		return $templatePath . $templateDir . DIRECTORY_SEPARATOR;
 	}	 
 
 	/**

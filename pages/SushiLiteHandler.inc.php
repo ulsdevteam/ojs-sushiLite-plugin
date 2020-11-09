@@ -29,7 +29,7 @@ class SushiLiteHandler extends Handler {
 	 * @param $request Request
 	 */
 	function index($args, $request) {
-		$version = Request::getRequestedOp($request);
+		$version = $request->getRequestedOp($request);
 		$plugin = PluginRegistry::getPlugin('generic', 'SushiLiteGenericPlugin');
 		$sushi = $plugin->getSushi($version);
 		$sushi->processRequest(count($args) ? $args[0] : '', $request);

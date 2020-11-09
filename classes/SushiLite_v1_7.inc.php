@@ -162,7 +162,9 @@ class SushiLite_v1_7 extends SushiLite {
 	function parseFilters($params) {
 		// Check each possible Filter. If not invalid, convert it to a metric parameter (probably $this->_metrics_filter).  If invalid, flag an error.
 		// record the recognized (valid or invalid) filter in $this->_filters for reporting in the ReportDefinition response element
-		import('lib.pkp.classes.validation.ValidatorDate');
+		if (!class_exists('ValidatorDate')) {
+			import('plugins.generic.sushiLite.classes.validation.ValidatorDate');
+		}
 		$this->_filters = array();
 		if (!isset($this->_metrics_filter)) {
 			$this->_metrics_filter = array();

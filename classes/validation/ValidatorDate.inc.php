@@ -45,7 +45,7 @@ class ValidatorDate extends ValidatorRegExp {
 		
 		if ($minScope < $maxScope) return false;
 
-		$dateMatches = $this->getMatches();
+		PKPString::regexp_match_get($this->_regExp, $value, $dateMatches);
 		if (isset($dateMatches['month'])) {
 			if (($dateMatches['month'] >= 1 && $dateMatches['month'] <= 12) || $maxScope == VALIDATOR_DATE_SCOPE_YEAR ) {
 				if (isset($dateMatches['day'])) {

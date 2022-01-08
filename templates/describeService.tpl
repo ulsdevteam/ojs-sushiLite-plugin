@@ -7,10 +7,10 @@
  * SUSHI-Lite getMethods response
  *}
 {strip}
-{assign var="pageTitle" value="plugins.generic.sushiLite.serviceDescription.pageTitle"}
-{include file="common/header.tpl"}
+{assign var="pageTitle" value="plugins.generic.sushiLite.plugin.name"}
+{include file="templates/frontend/components/header.tpl"}
 {/strip}
 <h2>{$sushiLiteVersion}</h2>
 <div id="sushiLiteSettings">
-<div id="description">{translate key="plugins.generic.sushiLite.serviceDescription.description"}</div>
-{include file="common/footer.tpl"}
+<div id="description">{translate key="plugins.generic.sushiLite.plugin.description"}</div>
+{include file="templates/frontend/components/footer.tpl"}

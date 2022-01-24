@@ -1,0 +1,87 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-12-10T09:23:32-05:00\n"
+"PO-Revision-Date: 2021-12-10T09:23:32-05:00\n"
+"Language: \n"
+
+msgid "plugins.generic.sushiLite.error.0000"
+msgstr "Information:"
+
+msgid "plugins.generic.sushiLite.error.0001"
+msgstr "Error: Unsupported method."
+
+msgid "plugins.generic.sushiLite.error.0060"
+msgstr "Error: Filter value not matched; Filter discarded."
+
+msgid "plugins.generic.sushiLite.error.1000"
+msgstr "Service not available."
+
+msgid "plugins.generic.sushiLite.error.1010"
+msgstr "Service busy."
+
+msgid "plugins.generic.sushiLite.error.1020"
+msgstr "Client has made too many requests."
+
+msgid "plugins.generic.sushiLite.error.1030"
+msgstr "Insufficient information to process this request."
+
+msgid "plugins.generic.sushiLite.error.2000"
+msgstr "Requestor not authorized to access service."
+
+msgid "plugins.generic.sushiLite.error.2010"
+msgstr "Requestor not authorized to access usage for institution."
+
+msgid "plugins.generic.sushiLite.error.2020"
+msgstr "Invalid API key."
+
+msgid "plugins.generic.sushiLite.error.3000"
+msgstr "Report not supported."
+
+msgid "plugins.generic.sushiLite.error.3010"
+msgstr "Report version not supported."
+
+msgid "plugins.generic.sushiLite.error.3020"
+msgstr "Invalid date arguments."
+
+msgid "plugins.generic.sushiLite.error.3030"
+msgstr "No usage available for requested dates."
+
+msgid "plugins.generic.sushiLite.error.3031"
+msgstr "Usage not ready for requested dates."
+
+msgid "plugins.generic.sushiLite.error.3040"
+msgstr "Partial data returned."
+
+msgid "plugins.generic.sushiLite.error.3050"
+msgstr "Parameter not supported."
+
+msgid "plugins.generic.sushiLite.error.3060"
+msgstr "Invalid filter value."
+
+msgid "plugins.generic.sushiLite.error.3061"
+msgstr "Incongruous filter value."
+
+msgid "plugins.generic.sushiLite.error.3062"
+msgstr "Invalid report attribute value."
+
+msgid "plugins.generic.sushiLite.error.3070"
+msgstr "Required filter missing."
+
+msgid "plugins.generic.sushiLite.error.3071"
+msgstr "Required report attribute missing."
+
+msgid "plugins.generic.sushiLite.error.3080"
+msgstr "Limit requested greater than server limit."
+
+msgid "plugins.generic.sushiLite.error.versionNotSupported"
+msgstr "The requested SUSHI version is not supported by this server."
+
+msgid "plugins.generic.sushiLite.error.versionsSupported"
+msgstr "Supported version identifiers include:"

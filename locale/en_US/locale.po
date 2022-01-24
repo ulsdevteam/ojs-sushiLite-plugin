@@ -1,0 +1,267 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-12-10T09:23:32-05:00\n"
+"PO-Revision-Date: 2021-12-10T09:23:32-05:00\n"
+"Language: \n"
+
+msgid "plugins.generic.sushiLite.plugin.name"
+msgstr "SUSHI-Lite"
+
+msgid "plugins.generic.sushiLite.plugin.description"
+msgstr "Provides a SUSHI-Lite interface for usage statistics harvesting."
+
+msgid "plugins.generic.sushiLite.manager.settings"
+msgstr "Settings"
+
+msgid "plugins.generic.sushiLite.manager.test"
+msgstr "Test"
+
+msgid "plugins.generic.sushiLite.settingsForm.pageTitle"
+msgstr "SUSHI-Lite settings"
+
+msgid "plugins.generic.sushiLite.settingsForm.description"
+msgstr "You can customize SUSHI-Lite with the form below."
+
+msgid "plugins.generic.sushiLite.error.internalError"
+msgstr "An internal error has occurred."
+
+msgid "plugins.generic.sushiLite.error.noReportProvided"
+msgstr "No report was provided."
+
+msgid "plugins.generic.sushiLite.error.reportExistsInRelease"
+msgstr "The requested report exists in release {$release}."
+
+msgid "plugins.generic.sushiLite.testForm.pageTitle"
+msgstr "SUSHI-Lite testing"
+
+msgid "plugins.generic.sushiLite.testForm.description"
+msgstr "You can generate SUSHI-Lite requests dynamically with the form below."
+
+msgid "plugins.generic.sushiLite.testForm.reportRequest"
+msgstr "Report Request"
+
+msgid "plugins.generic.sushiLite.testForm.reportName"
+msgstr "Report Name"
+
+msgid "plugins.generic.sushiLite.testForm.reportName.required"
+msgstr "Report Name is required."
+
+msgid "plugins.generic.sushiLite.testForm.reportName.IR1"
+msgstr "Item Report 1 (IR1)"
+
+msgid "plugins.generic.sushiLite.testForm.reportName.JR1"
+msgstr "Journal Report 1 (JR1)"
+
+msgid "plugins.generic.sushiLite.testForm.reportName.AR1"
+msgstr "Article Report 1 (JR1)"
+
+msgid "plugins.generic.sushiLite.testForm.ReportInvalid"
+msgstr "Report Name selection is not valid"
+
+msgid "plugins.generic.sushiLite.testForm.requestorId"
+msgstr "Requestor ID"
+
+msgid "plugins.generic.sushiLite.testForm.customerId"
+msgstr "Customer ID"
+
+msgid "plugins.generic.sushiLite.testForm.apiKey"
+msgstr "API Key"
+
+msgid "plugins.generic.sushiLite.testForm.apiKeyNotUUID"
+msgstr "API Key is not formatted as a UUID."
+
+msgid "plugins.generic.sushiLite.testForm.apiKeyInvalid"
+msgstr "API Key is not valid."
+
+msgid "plugins.generic.sushiLite.testForm.reportFilters"
+msgstr "Report Filters"
+
+msgid "plugins.generic.sushiLite.testForm.dateRange"
+msgstr "Date Range"
+
+msgid "plugins.generic.sushiLite.testForm.dateRangeFormat"
+msgstr "yyyy-mm-dd, yyyy-mm or yyyy"
+
+msgid "plugins.generic.sushiLite.testForm.DateBeginInvalid"
+msgstr "The format of the beginning of the Date Range is invalid."
+
+msgid "plugins.generic.sushiLite.testForm.DateEndInvalid"
+msgstr "The format of the ending of the Date Range is invalid."
+
+msgid "plugins.generic.sushiLite.testForm.DateBeginAfterEnd"
+msgstr "The end of the Date Range is before the beginning."
+
+msgid "plugins.generic.sushiLite.testForm.itemIdentifier"
+msgstr "Item Id"
+
+msgid "plugins.generic.sushiLite.testForm.itemIdentifier.scope.journal"
+msgstr "Journal"
+
+msgid "plugins.generic.sushiLite.testForm.itemIdentifier.scope.issue"
+msgstr "Issue"
+
+msgid "plugins.generic.sushiLite.testForm.itemIdentifier.scope.article"
+msgstr "Article"
+
+msgid "plugins.generic.sushiLite.testForm.itemIdentifier.scope.book"
+msgstr "Book"
+
+msgid "plugins.generic.sushiLite.testForm.itemIdentifier.scope.chapter"
+msgstr "Chapter"
+
+msgid "plugins.generic.sushiLite.testForm.itemIdentifier.scope.publisher"
+msgstr "Publisher"
+
+msgid "plugins.generic.sushiLite.testForm.ItemIdentfierScopeInvalid"
+msgstr "Item Id scope selection is not valid"
+
+msgid "plugins.generic.sushiLite.testForm.itemIdentifier.type.issn"
+msgstr "ISSN"
+
+msgid "plugins.generic.sushiLite.testForm.itemIdentifier.type.doi"
+msgstr "DOI"
+
+msgid "plugins.generic.sushiLite.testForm.itemIdentifier.type.isbn"
+msgstr "ISBN"
+
+msgid "plugins.generic.sushiLite.testForm.itemIdentifier.type.isni"
+msgstr "ISNI"
+
+msgid "plugins.generic.sushiLite.testForm.itemIdentifier.type.proprietary"
+msgstr "proprietary"
+
+msgid "plugins.generic.sushiLite.testForm.ItemIdentfierTypeInvalid"
+msgstr "Item Id type selection is not valid"
+
+msgid "plugins.generic.sushiLite.testForm.itemContributor"
+msgstr "Item Contributor"
+
+msgid "plugins.generic.sushiLite.testForm.itemContributor.type.orcid"
+msgstr "OrcID"
+
+msgid "plugins.generic.sushiLite.testForm.itemContributor.type.isni"
+msgstr "ISNI"
+
+msgid "plugins.generic.sushiLite.testForm.itemContributor.type.proprietary"
+msgstr "proprietary"
+
+msgid "plugins.generic.sushiLite.testForm.ItemContributorTypeInvalid"
+msgstr "Item Contributor type selection is not valid"
+
+msgid "plugins.generic.sushiLite.testForm.publisher"
+msgstr "Publisher"
+
+msgid "plugins.generic.sushiLite.testForm.platform"
+msgstr "Platform"
+
+msgid "plugins.generic.sushiLite.testForm.platformInvalid"
+msgstr "Platform selection is not valid."
+
+msgid "plugins.generic.sushiLite.testForm.metricTypes"
+msgstr "Metric Types"
+
+msgid "plugins.generic.sushiLite.testForm.metricTypeInvalid"
+msgstr "Invalid metric type."
+
+msgid "plugins.generic.sushiLite.testForm.pubYr"
+msgstr "Pub Year"
+
+msgid "plugins.generic.sushiLite.testForm.PubYrInvalid"
+msgstr "The format of the Publication Year is invalid."
+
+msgid "plugins.generic.sushiLite.testForm.pubYrFrom"
+msgstr "Pub Year From"
+
+msgid "plugins.generic.sushiLite.testForm.PubYrFromInvalid"
+msgstr "The format of the Publication Year From date is invalid."
+
+msgid "plugins.generic.sushiLite.testForm.pubYrTo"
+msgstr "Pub Year To"
+
+msgid "plugins.generic.sushiLite.testForm.PubYrToInvalid"
+msgstr "The format of the Publication Year To date is invalid."
+
+msgid "plugins.generic.sushiLite.testForm.PubYrFromAfterTo"
+msgstr "The Publication Year From date is after the Publication Year To date."
+
+msgid "plugins.generic.sushiLite.testForm.PubYrFromToConflict"
+msgstr "The Publication Year From date and the Publication Year To date and the Publication Year date conflict with each other."
+
+msgid "plugins.generic.sushiLite.testForm.isArchive"
+msgstr "Is Archive"
+
+msgid "plugins.generic.sushiLite.testForm.IsArchiveInvalid"
+msgstr "Is Archive flag is invalid."
+
+msgid "plugins.generic.sushiLite.testForm.reportAttributes"
+msgstr "Report Attributes"
+
+msgid "plugins.generic.sushiLite.testForm.granularity"
+msgstr "Granularity"
+
+msgid "plugins.generic.sushiLite.testForm.granularity.totals"
+msgstr "Totals"
+
+msgid "plugins.generic.sushiLite.testForm.granularity.yearly"
+msgstr "Yearly"
+
+msgid "plugins.generic.sushiLite.testForm.granularity.monthly"
+msgstr "Monthly"
+
+msgid "plugins.generic.sushiLite.testForm.granularity.daily"
+msgstr "Daily"
+
+msgid "plugins.generic.sushiLite.testForm.GranularityInvalid"
+msgstr "Granularity selection is not valid"
+
+msgid "plugins.generic.sushiLite.testForm.format"
+msgstr "Format"
+
+msgid "plugins.generic.sushiLite.testForm.format.json"
+msgstr "JSON/JSONP"
+
+msgid "plugins.generic.sushiLite.testForm.format.xml"
+msgstr "XML"
+
+msgid "plugins.generic.sushiLite.testForm.FormatInvalid"
+msgstr "Format selection is not valid"
+
+msgid "plugins.generic.sushiLite.testForm.callback"
+msgstr "Callback"
+
+msgid "plugins.generic.sushiLite.testForm.callbackInvalid"
+msgstr "Callback does not apply to this Format."
+
+msgid "plugins.generic.sushiLite.testForm.callbackJsonpAssumed"
+msgstr "Callback provided, but Format was not set to JSONP.  JSONP assumed."
+
+msgid "plugins.generic.sushiLite.testForm.limit"
+msgstr "Limit"
+
+msgid "plugins.generic.sushiLite.testForm.limitInvalid"
+msgstr "Limit invalid."
+
+msgid "plugins.generic.sushiLite.testForm.offset"
+msgstr "Offset"
+
+msgid "plugins.generic.sushiLite.testForm.offsetInvalid"
+msgstr "Offset invalid."
+
+msgid "plugins.generic.sushiLite.testForm.orderBy"
+msgstr "Order By"
+
+msgid "plugins.generic.sushiLite.testForm.orderBy.asc"
+msgstr "Ascending"
+
+msgid "plugins.generic.sushiLite.testForm.orderBy.des"
+msgstr "Descending"
+
+msgid "plugins.generic.sushiLite.testForm.submit"
+msgstr "Submit"
